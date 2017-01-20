@@ -49,6 +49,17 @@ public class TestUnit : MonoBehaviour {
         }
     }
 
+    private void LateUpdate()
+    {
+        if (life <= 0)
+        {
+            transform.position = poolParent.position;
+            this.gameObject.SetActive(false);
+        }
+    }
+
+
+
     void OnCollisionEnter(Collision collision)
     {
         if ((this.gameObject.name == "Unit1" && collision.gameObject.name == "Unit2") || this.gameObject.name == "Unit2" && collision.gameObject.name == "Unit1")
@@ -70,10 +81,6 @@ public class TestUnit : MonoBehaviour {
     public void LoseLife(float _attack)
     {
         life -= _attack;
-        if (life <= 0)
-        {
-            transform.position = poolParent.position;
-            this.gameObject.SetActive(false);
-        }
+        
     }
 }
