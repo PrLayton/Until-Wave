@@ -20,6 +20,7 @@ public class Unit : MonoBehaviour {
     public AudioSource[] feedbacksSoundAttack;
     public AudioSource[] feedbacksSoundWalk;
     public AudioSource feedbacksSounShell;
+    public AudioSource feedbacksSoundAttackCastle;
 
     float timerWalkFeedbackSound = 1;
 
@@ -162,6 +163,7 @@ public class Unit : MonoBehaviour {
     void AttackCastle()
     {
         Debug.Log("attack");
+        feedbacksSoundAttackCastle.Play();
         enemyCastle.ReceiveDamage(attack);
     }
 
