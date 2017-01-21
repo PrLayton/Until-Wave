@@ -16,8 +16,8 @@ public class InputManager : MonoBehaviour {
     public List<GameObject> player1Lanes;
     public List<GameObject> player2Lanes;
 
-    public Image player1LaneSelectorRes;
-    public Image player2LaneSelectorRes;
+    public GameObject player1LaneSelector;
+    public GameObject player2LaneSelector;
 
     public WaveManager waveManager;
 
@@ -33,9 +33,6 @@ public class InputManager : MonoBehaviour {
     private bool down1 = false;
     private bool down2 = false;
 
-    private Image player1LaneSelector;
-    private Image player2LaneSelector;
-
     [SerializeField]
     GameManager gameManager;
 
@@ -45,9 +42,8 @@ public class InputManager : MonoBehaviour {
         InputManager.moneyPlayer2 = moneyTrue;
         InputManager.staticMoneyForSeaShell = moneyForSeaShell;
 
-        //player1LaneSelector = Instantiate(player1LaneSelectorRes , player1Lanes[laneSelectedP1].transform.position , Quaternion.identity) as Image;
-       // player2LaneSelector = Instantiate(player2LaneSelectorRes, player2Lanes[laneSelectedP2].transform.position, Quaternion.identity) as Image;
-
+        player1LaneSelector.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
+        player2LaneSelector.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
     }
 	
 	// Update is called once per frame
@@ -62,16 +58,23 @@ public class InputManager : MonoBehaviour {
           
              if (Input.GetKeyDown((KeyCode)player1Pal))
             {
-                waveManager.SendUnit(laneSelectedP1, false);
+                waveManager.SendUnit(laneSelectedP1, true);
+                player1LaneSelector.GetComponent<CursorHandler>().Activated();
             }
             else if (Input.GetKeyDown((KeyCode)player2Pal))
             {
-                waveManager.SendUnit(laneSelectedP2, true);
+                waveManager.SendUnit(laneSelectedP2, false);
+                player2LaneSelector.GetComponent<CursorHandler>().Activated();
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) > 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 + 1) % 3;
-               // player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
+                Vector3 pos = player1LaneSelector.transform.position;
+                pos.x = player1Lanes[laneSelectedP1].transform.position.x;
+
+                player1LaneSelector.GetComponent<CursorHandler>().Move();
+
+                player1LaneSelector.transform.position = pos;
                 down1 = true;
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) < 0 && !down1)
@@ -82,7 +85,12 @@ public class InputManager : MonoBehaviour {
                 if (laneSelectedP1 < 0)
                     laneSelectedP1 = 2;
 
-               // player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
+                Vector3 pos = player1LaneSelector.transform.position;
+                pos.x = player1Lanes[laneSelectedP1].transform.position.x;
+
+                player1LaneSelector.GetComponent<CursorHandler>().Move();
+
+                player1LaneSelector.transform.position = pos;
 
                 down1 = true;
             }
@@ -94,7 +102,12 @@ public class InputManager : MonoBehaviour {
             {
 
                 laneSelectedP2 = (laneSelectedP2 + 1) % 3;
-               // player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
+                Vector3 pos = player2LaneSelector.transform.position;
+                pos.x = player2Lanes[laneSelectedP2].transform.position.x;
+
+                player2LaneSelector.GetComponent<CursorHandler>().Move();
+
+                player2LaneSelector.transform.position = pos;
 
                 down2 = true;
             }
@@ -105,7 +118,12 @@ public class InputManager : MonoBehaviour {
                 if (laneSelectedP2 < 0)
                     laneSelectedP2 = 2;
 
-                // player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
+                Vector3 pos = player2LaneSelector.transform.position;
+                pos.x = player2Lanes[laneSelectedP2].transform.position.x;
+
+                player2LaneSelector.GetComponent<CursorHandler>().Move();
+
+                player2LaneSelector.transform.position = pos;
 
                 down2 = true;
             }
