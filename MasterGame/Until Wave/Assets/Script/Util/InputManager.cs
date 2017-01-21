@@ -81,16 +81,22 @@ public class InputManager : MonoBehaviour {
 
             if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
             {
+                if (GameManager.furyPlayer1 == 1 && gameManager.stateWave == 2)
+                {
+                    GameManager.addFury(-GameManager.furyPlayer1, 0);
+                    StartCoroutine(WaitEndAnim(timeAnimationL, true));
+                }
+
                 if (!player2IsUlti)
                 {
+                    player1IsUlti = true;
 
                     //valide son ulti
-                    if (player1IsUlti)
+                    if (!player1IsUlti)
                     {
-
+                        
                     }
 
-                    player1IsUlti = true;
 
                     laneSelectedP1 = laneSelectedP1 % playerUltiPoints.Count;
 
@@ -100,10 +106,16 @@ public class InputManager : MonoBehaviour {
             
             if (Input.GetKeyDown((KeyCode)player2Pal + 4))
             {
+                if (GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2)
+                {
+                    {
+                        GameManager.addFury(-GameManager.furyPlayer2, 1);
+                    }
+                }
+
                 if (!player1IsUlti)
                 {
                     player2IsUlti = true;
-
                 }
             }
 
@@ -214,17 +226,6 @@ public class InputManager : MonoBehaviour {
 
         Debug.Log("Player 1 :" + player1Mapping);
         Debug.Log("Player 2 :" + player2Mapping);
-
-        if(GameManager.furyPlayer1 == 1 && gameManager.stateWave == 2)
-        {
-            GameManager.addFury(-GameManager.furyPlayer1, 0);
-            StartCoroutine(WaitEndAnim(timeAnimationL, true));
-        }
-        else if(GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2) {
-            {
-                GameManager.addFury(-GameManager.furyPlayer2, 1);
-            }
-        }
 	}
 
     IEnumerator WaitEndAnim(float duration, bool leftSide)
