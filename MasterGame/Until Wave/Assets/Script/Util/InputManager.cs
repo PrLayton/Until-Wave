@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour {
 
     private bool down1 = false;
     private bool down2 = false;
+
 	// Use this for initialization
 	void Start () {
         InputManager.moneyPlayer1 = moneyTrue;

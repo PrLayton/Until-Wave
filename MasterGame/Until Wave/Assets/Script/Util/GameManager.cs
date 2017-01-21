@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         currentTimerWave = timerWave;
         currentGeneralTimer = generalTimer;
     }
@@ -33,7 +35,7 @@ public class GameManager : MonoBehaviour {
             currentTimerWave = timerWave;
         }
         currentGeneralTimer -= Time.deltaTime;
-        generalTimerText.text = currentGeneralTimer.ToString();
+        generalTimerText.text = string.Format("{0}:{1}", ((int)currentGeneralTimer) / 60,  ((int)currentGeneralTimer) % 60);
     }
 
     IEnumerator SendShells()
@@ -45,6 +47,18 @@ public class GameManager : MonoBehaviour {
             {
                 GameObject.Instantiate(prefabShell, item.transform.position, Quaternion.identity);
             }
+        }
+    }
+
+   public static void EndGame(bool isCastleDead)
+    {
+        if(isCastleDead)
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
+        else
+        {
+
         }
     }
 }
