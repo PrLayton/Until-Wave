@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour {
-  static  public int moneyPlayer1;
+    static  public int moneyPlayer1;
     static public int moneyPlayer2;
     public int moneyTrue;
     static public int staticMoneyForSeaShell;

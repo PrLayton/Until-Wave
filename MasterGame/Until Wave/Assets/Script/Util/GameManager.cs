@@ -32,12 +32,24 @@ public class GameManager : MonoBehaviour {
     Image furyContent1;
     [SerializeField]
     Image furyContent2;
-    public float furyFillAmount1;
-    public float furyFillAmount2;
+    public float furyFillAmount1 = 0;
+    public float furyFillAmount2 = 0;
 
     //public static List<AudioSource> staticFeedbacksSoundAttack;
     //public List<AudioSource> feedbacksSoundAttack;
     //public GameObject camera;
+
+    public float timeAnimBigWave;
+    public float bigWaveTimer = 60;
+    public Castle castle1;
+    public Castle castle2;
+
+    static public float furyPlayer1;
+    static public float furyPlayer2;
+
+    int stateWave = -1;
+    public SpriteRenderer sprtBigWaveRenderer;
+    public Sprite[] sprtBigWave;
 
     // Use this for initialization
     void Start () {
@@ -47,6 +59,8 @@ public class GameManager : MonoBehaviour {
         //AudioSource[] aSources = camera.GetComponents<AudioSource>();
         //staticFeedbacksSoundAttack = feedbacksSoundAttack;
         //staticFeedbacksSoundAttack.Add(aSources[0]);
+        furyPlayer1 = 0;
+        furyPlayer2 = 0;
     }
 	
 	// Update is called once per frame
@@ -75,14 +89,32 @@ public class GameManager : MonoBehaviour {
             timerShell30Second = 30.0f;
         }
 
-        furyContent1.fillAmount = furyFillAmount1;
-        furyContent2.fillAmount = furyFillAmount2;
+        furyContent1.fillAmount = furyPlayer1;
+        furyContent2.fillAmount = furyPlayer2;
 
         generalTimerText.text = string.Format("{0}:{1}", ((int)currentGeneralTimer) / 60,  ((int)currentGeneralTimer) % 60);
 
+        bigWaveTimer -= Time.deltaTime;
+        if (bigWaveTimer <= 0)
+        {
+            StartCoroutine(WaitAnimBigWave());
+            if(stateWave < sprtBigWave.Length-1)
+            {
+                stateWave++;
+                sprtBigWaveRenderer.sprite = sprtBigWave[stateWave];
+            }
+            bigWaveTimer = 60.0f;
+        }
     }
 
-    IEnumerator SendShells()
+    IEnumerator WaitAnimBigWave()
+    {
+        yield return new WaitForSeconds(timeAnimBigWave);
+        castle1.ReceiveDamage(5);
+        castle2.ReceiveDamage(5);
+    }
+
+        IEnumerator SendShells()
     {
         yield return new WaitForSeconds(timeAnim);
         foreach (var item in sellPositions)
@@ -99,5 +131,17 @@ public class GameManager : MonoBehaviour {
         SceneManager.LoadSceneAsync(isCastleDead ? 0 : 1);
 
         PlayerPrefs.SetInt("Winning", isPlayer1Winner ? 0 : 1);
+    }
+
+    static public void addFury(float _value, int _player)
+    {
+        if (_player == 0)
+        {
+            furyPlayer1 += _value;
+        }
+        else
+        {
+            furyPlayer2 += _value;
+        }
     }
 }
