@@ -11,14 +11,13 @@ public class CursorHandler : MonoBehaviour {
     public float timeActivated;
 
     private bool activated;
+    private bool ulti = false;
 
     private float timeEnd;
 
     // Use this for initialization
     private void Start()
     {
-        
-
         activated = false;
         GetComponent<SpriteRenderer>().sprite = cursorNormal;
     }
@@ -44,6 +43,10 @@ public class CursorHandler : MonoBehaviour {
         GetComponent<SpriteRenderer>().sprite = cursorActivated;
     }
 
+    public void ultiMode(bool ulti)
+    {
+        this.ulti = ulti;
+    }
     public void Move()
     {
         AudioSource.PlayClipAtPoint(cursorSound, gameObject.transform.position);
