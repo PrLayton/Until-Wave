@@ -23,11 +23,15 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Input.GetKeyDown(KeyCode.JoystickButton0))
+	    if(Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
-            waveManager.SendUnit(laneSelected);
+            waveManager.SendUnit(laneSelected, true);
         }
-        else if(Input.GetAxis("VerticalJP1") > 0 && !down)
+        else if(Input.GetKeyDown(KeyCode.Joystick2Button0))
+        {
+            waveManager.SendUnit(laneSelected, false);
+        }
+        else if (Input.GetAxis("VerticalJP1") > 0 && !down)
         {
             laneSelected = (laneSelected + 1) % 3;
             down = true;
@@ -57,5 +61,7 @@ public class InputManager : MonoBehaviour {
         {
             moneyPlayer2 += _money;
         }
+
+        Debug.Log(moneyPlayer1);
     }
 }

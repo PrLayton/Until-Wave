@@ -14,14 +14,14 @@ public class WaveManager : MonoBehaviour {
     float currentCooldownPlayer2;
 
     void Start () {
-        currentCooldownPlayer1 = cooldown;
-        currentCooldownPlayer2 = cooldown;
+        currentCooldownPlayer1 = 0;
+        currentCooldownPlayer2 = 0;
     }
 
     public void SendUnit(int line, bool isplayer1){
         if (isplayer1)
         {
-            if (currentCooldownPlayer1 <= 0 && InputManager.moneyPlayer1 - pricePrefabUnit >= 0)
+            if (currentCooldownPlayer1 <= 0.0f && InputManager.moneyPlayer1 - pricePrefabUnit >= 0)
             {
                 InputManager.addMoney(-pricePrefabUnit, 0);
                 GameObject tmp = GameObject.Instantiate(prefabUnit, spawnersPlayer1[line].transform.position, spawnersPlayer1[line].transform.rotation) as GameObject;
@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour {
         }
         else
         {
-            if(currentCooldownPlayer2 <= 0 && InputManager.moneyPlayer2 - pricePrefabUnit >= 0)
+            if(currentCooldownPlayer2 <= 0.0f && InputManager.moneyPlayer2 - pricePrefabUnit >= 0)
             {
                 InputManager.addMoney(-pricePrefabUnit, 0);
                 GameObject tmp2 = GameObject.Instantiate(prefabUnit, spawnersPlayer2[line].transform.position, spawnersPlayer2[line].transform.rotation) as GameObject;
@@ -45,7 +45,7 @@ public class WaveManager : MonoBehaviour {
 	
 	void Update () {
         currentCooldownPlayer1 -= Time.deltaTime;
-        currentCooldownPlayer2 = Time.deltaTime;
+        currentCooldownPlayer2 -= Time.deltaTime;
     }
 
 
