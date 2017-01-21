@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour {
   static  public int moneyPlayer1;
@@ -12,6 +13,8 @@ public class InputManager : MonoBehaviour {
 
     public WaveManager waveManager;
 
+    public Text money1Text;
+    public Text money2Text;
 
     private bool down = false;
 	// Use this for initialization
@@ -23,11 +26,11 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Input.GetKeyDown(KeyCode.JoystickButton0))
+	    if(Input.GetKeyDown(KeyCode.Joystick2Button0))
         {
             waveManager.SendUnit(laneSelected, true);
         }
-        else if(Input.GetKeyDown(KeyCode.Joystick2Button0))
+        if(Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
             waveManager.SendUnit(laneSelected, false);
         }
@@ -49,7 +52,10 @@ public class InputManager : MonoBehaviour {
         {
             down = false;
         }
-	}
+
+        money1Text.text = InputManager.moneyPlayer1.ToString();
+        money2Text.text = InputManager.moneyPlayer2.ToString();
+    }
 
     static public void addMoney(int _money, int _player)
     {
@@ -61,7 +67,5 @@ public class InputManager : MonoBehaviour {
         {
             moneyPlayer2 += _money;
         }
-
-        Debug.Log(moneyPlayer1);
     }
 }

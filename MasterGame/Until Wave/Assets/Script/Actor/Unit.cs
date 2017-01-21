@@ -57,16 +57,23 @@ public class Unit : MonoBehaviour {
  
     void FixedUpdate()
     {
-        rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
-        print(rb.velocity);
-        if(rb.velocity.y < -1)
+        //rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+        //print(rb.velocity);
+       /* if(rb.velocity.y < -1)
         {
             rb.velocity.Set(0, 0, 0);
+        }*/
+        if (unitState == State.walk)
+        {
+            //this.GetComponent<Rigidbody>().AddForce(this.transform.forward, ForceMode.Force);
+            this.transform.Translate(this.transform.forward * 0.01f * speed);
         }
-        //if (unitState == State.walk)
-        //{
-        //    this.transform.Translate(this.transform.forward * 0.01f * speed);
-        //}
+        //print(Mathf.Round(transform.eulerAngles.x));
+        /*if (transform.eulerAngles.x < -100f) {
+            transform.Rotate(new Vector3(-5, 0, 0));
+        }*/
+        //if (transform.eulerAngles.x > 100f) { transform.Rotate(new Vector3(5, 0, 0)); }
+        //this.transform.Rotate(this.transform.right, -transform.localRotation.eulerAngles.x*Time.deltaTime);
     }
 
     private void LateUpdate()
@@ -109,5 +116,10 @@ public class Unit : MonoBehaviour {
     public void LoseLife(int _attack)
     {
         life -= _attack;
+    }
+
+    public void InverseSpeed()
+    {
+        speed = -speed;
     }
 }

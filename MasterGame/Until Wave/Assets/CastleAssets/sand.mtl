@@ -1,0 +1,17 @@
+# Blender MTL File: 'untitled.blend'
+# Material Count: 1
+
+newmtl GAMEPREV
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd /home/linko/Desktop/AppData/Local/Temp/Temp3_dblender.zip/skinMatcap.jpg
+map_Bump /home/linko/Desktop/project/sand/textures/normal 2k 0001.tga
+map_Ks /home/linko/Desktop/project/sand/textures/specular 2k 0001.tga
+map_Ns /home/linko/Desktop/project/sand/textures/specular 2k 0001.tga
+map_d /home/linko/Desktop/project/sand/textures/data/grayscale 0001.tga

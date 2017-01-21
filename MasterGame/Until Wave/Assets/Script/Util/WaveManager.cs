@@ -37,7 +37,7 @@ public class WaveManager : MonoBehaviour {
                 InputManager.addMoney(-pricePrefabUnit, 0);
                 GameObject tmp2 = GameObject.Instantiate(prefabUnit, spawnersPlayer2[line].transform.position, spawnersPlayer2[line].transform.rotation) as GameObject;
                 tmp2.tag = "player2";
-
+                tmp2.GetComponent<Unit>().InverseSpeed();
                 currentCooldownPlayer2 = cooldown;
             }
         }
@@ -49,12 +49,12 @@ public class WaveManager : MonoBehaviour {
         tmp.tag = "player1";
         GameObject tmp2 = GameObject.Instantiate(prefabUnit, spawnersPlayer2[line].transform.position, spawnersPlayer2[line].transform.rotation) as GameObject;
         tmp2.tag = "player2";
+        tmp2.GetComponent<Unit>().InverseSpeed();
     }
-
+    
     void Update () {
         currentCooldownPlayer1 -= Time.deltaTime;
         currentCooldownPlayer2 -= Time.deltaTime;
-        Debug.Log(currentCooldownPlayer1);
     }
 
 
