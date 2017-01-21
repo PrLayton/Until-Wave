@@ -25,6 +25,9 @@ public class Unit : MonoBehaviour {
     public AudioSource[] feedbacksSoundDeadM;
     public AudioSource[] feedbacksSoundDeadF;
 
+    [Tooltip("Spawné quand shell picked-up")]
+    public ParticleSystem particleShell;
+
     float timerWalkFeedbackSound = 1;
 
     enum State
@@ -147,6 +150,9 @@ public class Unit : MonoBehaviour {
             {
                 InputManager.addMoney(InputManager.staticMoneyForSeaShell, 1);
             }
+
+            Instantiate()
+
             Destroy(collision.gameObject);
             feedbacksSounShell.Play();
         }

@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour {
 
    public static void EndGame(bool isCastleDead, bool isPlayer1Winner)
     {
-        SceneManager.LoadSceneAsync(isCastleDead ? 0 : 1);
+        SceneManager.LoadSceneAsync(2);
 
         PlayerPrefs.SetInt("Winning", isPlayer1Winner ? 0 : 1);
     }
