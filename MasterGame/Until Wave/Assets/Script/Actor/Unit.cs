@@ -28,7 +28,8 @@ public class Unit : MonoBehaviour {
     {
         walk = 0,
         fight,
-        idle
+        idle,
+        dead
     }
 
     State unitState;
@@ -102,9 +103,17 @@ public class Unit : MonoBehaviour {
 
     private void LateUpdate()
     {
-        if (life <= 0)
+        if (life <= 0 && unitState != State.dead)
         {
+            if(this.gameObject.tag == "player1")
+            {
+                GameManager.addFury(0.05f, 1);
+            } else
+            {
+                GameManager.addFury(0.05f, 0);
+            }
             Destroy(this.gameObject, 0.3f);
+            unitState = State.dead;
         }
     }
 
@@ -164,6 +173,14 @@ public class Unit : MonoBehaviour {
     {
         Debug.Log("attack");
         feedbacksSoundAttackCastle.Play();
+        if (this.gameObject.tag == "player1")
+        {
+            GameManager.addFury(0.1f, 0);
+        }
+        else
+        {
+            GameManager.addFury(0.1f, 1);
+        }
         enemyCastle.ReceiveDamage(attack);
     }
 

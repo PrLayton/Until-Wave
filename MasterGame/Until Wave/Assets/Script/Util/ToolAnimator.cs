@@ -13,7 +13,7 @@ public class ToolAnimator : MonoBehaviour {
 
     public Texture2D[] frames;
     public Sprite[] sprites;
-    float framesPorSegundo = 20.0f;
+    float framesPorSegundo = 1.0f;
     private int index;
 
     bool alreadyLaunched = true;

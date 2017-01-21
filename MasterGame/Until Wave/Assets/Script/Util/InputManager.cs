@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour {
-  static  public int moneyPlayer1;
+    static  public int moneyPlayer1;
     static public int moneyPlayer2;
     public int moneyTrue;
     static public int staticMoneyForSeaShell;
