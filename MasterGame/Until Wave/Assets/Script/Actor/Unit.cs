@@ -151,7 +151,7 @@ public class Unit : MonoBehaviour {
                 InputManager.addMoney(InputManager.staticMoneyForSeaShell, 1);
             }
 
-            Instantiate()
+            Instantiate(particleShell, collision.gameObject.transform.position, Quaternion.identity);
 
             Destroy(collision.gameObject);
             feedbacksSounShell.Play();
