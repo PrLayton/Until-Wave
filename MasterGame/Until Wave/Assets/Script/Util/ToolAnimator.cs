@@ -27,6 +27,7 @@ public class ToolAnimator : MonoBehaviour {
     public void PlayAnimation()
     {
         alreadyLaunched = false;
+        index = 0;
     }
 	
 	// Update is called once per frame

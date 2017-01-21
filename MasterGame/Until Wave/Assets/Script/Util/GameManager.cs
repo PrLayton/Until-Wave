@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator SendShells()
     {
         animatorForLittleWave.PlayAnimation();
-        yield return new WaitForSeconds(timeAnim-2f);
+        yield return new WaitForSeconds(timeAnim);
         foreach (var item in sellPositions)
         {
             if (Random.Range(0.0f, 1f) <= probSpawnShell)
