@@ -17,6 +17,13 @@ public class Unit : MonoBehaviour {
 
     float currentTimerAttack = 0;
 
+    public AudioSource[] feedbacksSoundAttack;
+    public AudioSource[] feedbacksSoundWalk;
+    public AudioSource feedbacksSounShell;
+    public AudioSource feedbacksSoundAttackCastle;
+
+    float timerWalkFeedbackSound = 1;
+
     enum State
     {
         walk = 0,
@@ -31,7 +38,8 @@ public class Unit : MonoBehaviour {
     private Castle enemyCastle;
     // Use this for initialization
     void Start () {
-        currentTimerAttack = timerAttack;
+        unitState = State.walk;
+        currentTimerAttack = 0;
         rb = GetComponent<Rigidbody>();
     }
 	
@@ -55,7 +63,17 @@ public class Unit : MonoBehaviour {
                 currentTimerAttack = timerAttack;
             }
         }
+        else
+        {
+            timerWalkFeedbackSound -= Time.deltaTime;
 
+            if (timerWalkFeedbackSound<= 0.0f)
+            {
+                feedbacksSoundWalk[Random.Range(0, feedbacksSoundWalk.Length)].Play();
+                timerWalkFeedbackSound = 1f;
+            }
+        }
+   
     }
 
     public Vector3 teleportPoint;
@@ -86,11 +104,9 @@ public class Unit : MonoBehaviour {
     {
         if (life <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 0.3f);
         }
     }
-
-    
 
     void OnCollisionEnter(Collision collision)
     {
@@ -111,6 +127,7 @@ public class Unit : MonoBehaviour {
                 InputManager.addMoney(InputManager.staticMoneyForSeaShell, 1);
             }
             Destroy(collision.gameObject);
+            feedbacksSounShell.Play();
         }
 
          if (collision.gameObject.tag == "castle")
@@ -139,12 +156,14 @@ public class Unit : MonoBehaviour {
 
     void AttackUnit()
     {
+        feedbacksSoundAttack[Random.Range(0, feedbacksSoundAttack.Length)].Play();
         currentEnemy.LoseLife(attack);
     }
 
     void AttackCastle()
     {
         Debug.Log("attack");
+        feedbacksSoundAttackCastle.Play();
         enemyCastle.ReceiveDamage(attack);
     }
 
