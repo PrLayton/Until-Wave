@@ -25,14 +25,16 @@ public class Unit : MonoBehaviour {
 
     enum State
     {
-        walk,
-        fight
+        walk = 0,
+        fight,
+        idle
     }
 
     State unitState;
 
     Unit currentEnemy;
 
+    private Castle enemyCastle;
     // Use this for initialization
     void Start () {
         unitState = State.walk;
@@ -44,7 +46,7 @@ public class Unit : MonoBehaviour {
 	void Update () {
         if (unitState == State.fight)
         {
-            if (currentEnemy == null)
+            if (currentEnemy == null && enemyCastle == null)
             {
                 unitState = State.walk;
             }
@@ -52,7 +54,11 @@ public class Unit : MonoBehaviour {
             currentTimerAttack -= Time.deltaTime;
             if (currentTimerAttack <= 0)
             {
-                Attack();
+                if (currentEnemy != null)
+                    AttackUnit();
+                else if (enemyCastle != null)
+                    AttackCastle();
+
                 currentTimerAttack = timerAttack;
             }
         }
@@ -101,7 +107,6 @@ public class Unit : MonoBehaviour {
         }
     }
 
-
     void OnCollisionEnter(Collision collision)
     {
         if ((this.gameObject.tag == "player1" && collision.gameObject.tag == "player2") || this.gameObject.tag == "player2" && collision.gameObject.tag == "player1")
@@ -123,12 +128,41 @@ public class Unit : MonoBehaviour {
             Destroy(collision.gameObject);
             feedbacksSounShell.Play();
         }
+
+         if (collision.gameObject.tag == "castle")
+        {
+            enemyCastle = collision.gameObject.GetComponent<Castle>();
+
+            unitState = State.fight;
+
+            Debug.Log("enter");
+        }
+         if(gameObject.tag == collision.gameObject.tag)
+        {
+            //unitState = State.idle;
+        }
+
     }
 
-    void Attack()
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "castle")
+        {
+            Debug.Log("exit");
+            enemyCastle = null;
+        }
+    }
+
+    void AttackUnit()
     {
         feedbacksSoundAttack[Random.Range(0, feedbacksSoundAttack.Length)].Play();
         currentEnemy.LoseLife(attack);
+    }
+
+    void AttackCastle()
+    {
+        Debug.Log("attack");
+        enemyCastle.ReceiveDamage(attack);
     }
 
     public void LoseLife(int _attack)

@@ -29,7 +29,12 @@ public class Castle : MonoBehaviour {
     {
         health -= damageValue;
 
+        Debug.Log("vie "+health);
+
         UpdateMesh();
+
+        if (health <= 0)
+            GameManager.EndGame(true);
     }
 
     private void UpdateMesh()

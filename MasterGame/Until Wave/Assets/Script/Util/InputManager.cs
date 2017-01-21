@@ -25,6 +25,7 @@ public class InputManager : MonoBehaviour {
 
     private bool down1 = false;
     private bool down2 = false;
+
 	// Use this for initialization
 	void Start () {
         InputManager.moneyPlayer1 = moneyTrue;
@@ -84,8 +85,6 @@ public class InputManager : MonoBehaviour {
             }
             else if (Input.GetAxis("Vertical" + player2Mapping) == 0)
             {
-                Debug.Log("0 player 2");
-
                 down2 = false;
             }
         }

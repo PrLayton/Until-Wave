@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         currentTimerWave = timerWave;
         currentGeneralTimer = generalTimer;
         //AudioSource[] aSources = camera.GetComponents<AudioSource>();
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour {
             currentTimerWave = timerWave;
         }
         currentGeneralTimer -= Time.deltaTime;
+
         generalTimerText.text = currentGeneralTimer.ToString();
 
         timerShell1Second-= Time.deltaTime;
@@ -74,6 +77,9 @@ public class GameManager : MonoBehaviour {
 
         furyContent1.fillAmount = furyFillAmount1;
         furyContent2.fillAmount = furyFillAmount2;
+
+        generalTimerText.text = string.Format("{0}:{1}", ((int)currentGeneralTimer) / 60,  ((int)currentGeneralTimer) % 60);
+
     }
 
     IEnumerator SendShells()
@@ -88,8 +94,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    /*static public void PlayAttackFeedbackSound()
+   public static void EndGame(bool isCastleDead)
     {
-        staticFeedbacksSoundAttack[Random.Range(0, staticFeedbacksSoundAttack.Count)].Play();
-    }*/
+        if(isCastleDead)
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
+        else
+        {
+
+        }
+    }
 }
