@@ -15,7 +15,7 @@ public class ToolAnimator : MonoBehaviour {
     float savedTime;
 
     [SerializeField]
-    bool loop = true;
+    bool loop = false;
 
     bool alreadySaveTime = false;
 
@@ -38,7 +38,7 @@ public class ToolAnimator : MonoBehaviour {
                 savedTime = Time.time;
                 alreadySaveTime = true;
             }
-            if (index < sprites.Length - 1)
+            if (index < sprites.Length-1)
             {
                 index = (int)((Time.time - savedTime) * framesPorSegundo);
                 index = index % sprites.Length;
@@ -50,7 +50,7 @@ public class ToolAnimator : MonoBehaviour {
                 {
                     alreadyLaunched = true;
                 }
-                index = 0;
+                sprR.sprite = null;
             }
         }
 
