@@ -17,8 +17,6 @@ public class CursorHandler : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
-        
-
         activated = false;
         GetComponent<SpriteRenderer>().sprite = cursorNormal;
     }

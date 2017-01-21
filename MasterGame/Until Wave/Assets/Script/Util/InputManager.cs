@@ -16,8 +16,10 @@ public class InputManager : MonoBehaviour {
     public List<GameObject> player1Lanes;
     public List<GameObject> player2Lanes;
 
-    public GameObject player1LaneSelector;
-    public GameObject player2LaneSelector;
+    public List<GameObject> playerUltiPoints;
+
+    public GameObject player1Cursor;
+    public GameObject player2Cursor;
 
     public WaveManager waveManager;
 
@@ -32,6 +34,9 @@ public class InputManager : MonoBehaviour {
 
     private bool down1 = false;
     private bool down2 = false;
+
+    private bool player1IsUlti = false;
+    private bool player2IsUlti = false;
 
     [SerializeField]
     GameManager gameManager;
@@ -51,8 +56,8 @@ public class InputManager : MonoBehaviour {
         InputManager.moneyPlayer2 = moneyTrue;
         InputManager.staticMoneyForSeaShell = moneyForSeaShell;
 
-        player1LaneSelector.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
-        player2LaneSelector.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
+        player1Cursor.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
+        player2Cursor.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
     }
 	
 	// Update is called once per frame
@@ -64,26 +69,63 @@ public class InputManager : MonoBehaviour {
 
            // Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
 
-          
-             if (Input.GetKeyDown((KeyCode)player1Pal))
+            if(Input.GetAxis("FuryJP1") > 0)
+            {
+               
+            }
+            else if (Input.GetAxis("FuryJP2") > 0)
+            {
+               
+
+            }
+
+            if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
+            {
+                if (!player2IsUlti)
+                {
+
+                    //valide son ulti
+                    if (player1IsUlti)
+                    {
+
+                    }
+
+                    player1IsUlti = true;
+
+                    laneSelectedP1 = laneSelectedP1 % playerUltiPoints.Count;
+
+                    Debug.Log(laneSelectedP1);
+                }
+            }
+            
+            if (Input.GetKeyDown((KeyCode)player2Pal + 4))
+            {
+                if (!player1IsUlti)
+                {
+                    player2IsUlti = true;
+
+                }
+            }
+
+                if (Input.GetKeyDown((KeyCode)player1Pal))
             {
                 waveManager.SendUnit(laneSelectedP1, true);
-                player1LaneSelector.GetComponent<CursorHandler>().Activated();
+                player1Cursor.GetComponent<CursorHandler>().Activated();
             }
             else if (Input.GetKeyDown((KeyCode)player2Pal))
             {
                 waveManager.SendUnit(laneSelectedP2, false);
-                player2LaneSelector.GetComponent<CursorHandler>().Activated();
+                player2Cursor.GetComponent<CursorHandler>().Activated();
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) > 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 + 1) % 3;
-                Vector3 pos = player1LaneSelector.transform.position;
+                Vector3 pos = player1Cursor.transform.position;
                 pos.x = player1Lanes[laneSelectedP1].transform.position.x;
 
-                player1LaneSelector.GetComponent<CursorHandler>().Move();
+                player1Cursor.GetComponent<CursorHandler>().Move();
 
-                player1LaneSelector.transform.position = pos;
+                player1Cursor.transform.position = pos;
                 down1 = true;
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) < 0 && !down1)
@@ -94,12 +136,12 @@ public class InputManager : MonoBehaviour {
                 if (laneSelectedP1 < 0)
                     laneSelectedP1 = 2;
 
-                Vector3 pos = player1LaneSelector.transform.position;
+                Vector3 pos = player1Cursor.transform.position;
                 pos.x = player1Lanes[laneSelectedP1].transform.position.x;
 
-                player1LaneSelector.GetComponent<CursorHandler>().Move();
+                player1Cursor.GetComponent<CursorHandler>().Move();
 
-                player1LaneSelector.transform.position = pos;
+                player1Cursor.transform.position = pos;
 
                 down1 = true;
             }
@@ -111,12 +153,12 @@ public class InputManager : MonoBehaviour {
             {
 
                 laneSelectedP2 = (laneSelectedP2 + 1) % 3;
-                Vector3 pos = player2LaneSelector.transform.position;
+                Vector3 pos = player2Cursor.transform.position;
                 pos.x = player2Lanes[laneSelectedP2].transform.position.x;
 
-                player2LaneSelector.GetComponent<CursorHandler>().Move();
+                player2Cursor.GetComponent<CursorHandler>().Move();
 
-                player2LaneSelector.transform.position = pos;
+                player2Cursor.transform.position = pos;
 
                 down2 = true;
             }
@@ -127,12 +169,12 @@ public class InputManager : MonoBehaviour {
                 if (laneSelectedP2 < 0)
                     laneSelectedP2 = 2;
 
-                Vector3 pos = player2LaneSelector.transform.position;
+                Vector3 pos = player2Cursor.transform.position;
                 pos.x = player2Lanes[laneSelectedP2].transform.position.x;
 
-                player2LaneSelector.GetComponent<CursorHandler>().Move();
+                player2Cursor.GetComponent<CursorHandler>().Move();
 
-                player2LaneSelector.transform.position = pos;
+                player2Cursor.transform.position = pos;
 
                 down2 = true;
             }
