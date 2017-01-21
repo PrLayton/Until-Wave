@@ -4,6 +4,13 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+public enum EWin
+{
+    WinCastlePlayer1 = 0,
+    WinCastlePlayer2,
+    WinTimePlayer1,
+    WinTimePlayer2
+}
 public class GameManager : MonoBehaviour {
 
     public float timerWave;
@@ -135,6 +142,7 @@ public class GameManager : MonoBehaviour {
     {
         SceneManager.LoadSceneAsync(2);
 
+        //if()
         PlayerPrefs.SetInt("Winning", isPlayer1Winner ? 0 : 1);
     }
 
