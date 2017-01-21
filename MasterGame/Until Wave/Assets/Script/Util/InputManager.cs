@@ -2,8 +2,11 @@
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
-  static  public int money;
+  static  public int moneyPlayer1;
+    static public int moneyPlayer2;
     public int moneyTrue;
+    static public int staticMoneyForSeaShell;
+    public int moneyForSeaShell;
 
     public int laneSelected;
 
@@ -11,8 +14,10 @@ public class InputManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        InputManager.money = moneyTrue;
-	}
+        InputManager.moneyPlayer1 = moneyTrue;
+        InputManager.moneyPlayer2 = moneyTrue;
+        InputManager.staticMoneyForSeaShell = moneyForSeaShell;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -27,8 +32,15 @@ public class InputManager : MonoBehaviour {
         }
 	}
 
-    static void addMoney(int _money)
+    static public void addMoney(int _money, int _player)
     {
-        money += _money;
+        if(_player == 0)
+        {
+            moneyPlayer1 += _money;
+        }
+        else
+        {
+            moneyPlayer2 += _money;
+        }
     }
 }

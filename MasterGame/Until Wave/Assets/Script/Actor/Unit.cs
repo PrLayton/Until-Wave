@@ -74,7 +74,15 @@ public class Unit : MonoBehaviour {
             }
         if(collision.gameObject.tag == "seaShell")
         {
-
+            if(this.gameObject.tag == "player1")
+            {
+                InputManager.addMoney(InputManager.staticMoneyForSeaShell, 0);
+            }
+            else
+            {
+                InputManager.addMoney(InputManager.staticMoneyForSeaShell, 1);
+            }
+            Destroy(collision.gameObject);
         }
     }
 
