@@ -41,7 +41,6 @@ public class Unit : MonoBehaviour {
     void Start () {
         unitState = State.walk;
         currentTimerAttack = 0;
-        rb = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
@@ -76,14 +75,9 @@ public class Unit : MonoBehaviour {
         }
    
     }
-
-    public Vector3 teleportPoint;
-    public Rigidbody rb;
  
     void FixedUpdate()
     {
-        //rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
-        //print(rb.velocity);
        /* if(rb.velocity.y < -1)
         {
             rb.velocity.Set(0, 0, 0);
