@@ -31,44 +31,27 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-<<<<<<< HEAD
 
         //si on sait quel gamepad est qui, on y va
         if(player1Mapping != "" && player2Mapping != "")
-=======
-	    if(Input.GetKeyDown(KeyCode.JoystickButton0))
-        {
-            waveManager.SendUnit(laneSelected, true);
-        }
-        else if(Input.GetKeyDown(KeyCode.Joystick2Button0))
-        {
-            waveManager.SendUnit(laneSelected, false);
-        }
-        else if (Input.GetAxis("VerticalJP1") > 0 && !down)
-        {
-            laneSelected = (laneSelected + 1) % 3;
-            down = true;
-        }
-        else if (Input.GetAxis("VerticalJP1") < 0 && !down)
->>>>>>> 4e2b4ad026b7204e0cc501593f2b61d1a5b42d70
         {
 
-            Debug.Log("player 22"+Input.GetAxis("Vertical" + player2Mapping));
+            Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
 
-            if (Input.GetKeyDown((KeyCode) player2Pal))
+            if (Input.GetKeyDown((KeyCode)player2Pal))
             {
                 waveManager.SendUnit(laneSelectedP2, true);
             }
-            else if (Input.GetKeyDown((KeyCode) player1Pal))
+            else if (Input.GetKeyDown((KeyCode)player1Pal))
             {
                 waveManager.SendUnit(laneSelectedP1, false);
             }
-            else if (Input.GetAxis("Vertical"+player1Mapping) > 0 && !down1)
+            else if (Input.GetAxis("Vertical" + player1Mapping) > 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 + 1) % 3;
                 down1 = true;
             }
-            else if (Input.GetAxis("Vertical"+player1Mapping) < 0 && !down1)
+            else if (Input.GetAxis("Vertical" + player1Mapping) < 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 - 1);
 
@@ -77,7 +60,7 @@ public class InputManager : MonoBehaviour {
 
                 down1 = true;
             }
-            else if (Input.GetAxis("Vertical"+player1Mapping) == 0)
+            else if (Input.GetAxis("Vertical" + player1Mapping) == 0)
             {
                 Debug.Log("qsd lol");
                 down1 = false;
@@ -104,10 +87,9 @@ public class InputManager : MonoBehaviour {
                 down2 = false;
             }
         }
+	   
         else // demande aux joueurs d'appuyer sur une touche pour savoir qui est qui
         {
-       
-
              for(int i = 350; i <= 490; i+=20)
             {
                 if (Input.GetKeyDown((KeyCode) i))
