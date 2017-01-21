@@ -94,15 +94,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-   public static void EndGame(bool isCastleDead)
+   public static void EndGame(bool isCastleDead, bool isPlayer1Winner)
     {
-        if(isCastleDead)
-        {
-            SceneManager.LoadSceneAsync(0);
-        }
-        else
-        {
+        SceneManager.LoadSceneAsync(isCastleDead ? 0 : 1);
 
-        }
+        PlayerPrefs.SetInt("Winning", isPlayer1Winner ? 0 : 1);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class InputManager : MonoBehaviour {
   static  public int moneyPlayer1;
@@ -11,6 +12,12 @@ public class InputManager : MonoBehaviour {
 
     public int laneSelectedP1 = 2;
     public int laneSelectedP2 = 2;
+
+    public List<GameObject> player1Lanes;
+    public List<GameObject> player2Lanes;
+
+    public Image player1LaneSelectorRes;
+    public Image player2LaneSelectorRes;
 
     public WaveManager waveManager;
 
@@ -26,11 +33,18 @@ public class InputManager : MonoBehaviour {
     private bool down1 = false;
     private bool down2 = false;
 
-	// Use this for initialization
-	void Start () {
+    private Image player1LaneSelector;
+    private Image player2LaneSelector;
+
+    // Use this for initialization
+    void Start () {
         InputManager.moneyPlayer1 = moneyTrue;
         InputManager.moneyPlayer2 = moneyTrue;
         InputManager.staticMoneyForSeaShell = moneyForSeaShell;
+
+        player1LaneSelector = Instantiate(player1LaneSelectorRes , player1Lanes[laneSelectedP1].transform.position , Quaternion.identity) as Image;
+        player2LaneSelector = Instantiate(player2LaneSelectorRes, player2Lanes[laneSelectedP2].transform.position, Quaternion.identity) as Image;
+
     }
 	
 	// Update is called once per frame
@@ -53,14 +67,18 @@ public class InputManager : MonoBehaviour {
             else if (Input.GetAxis("Vertical" + player1Mapping) > 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 + 1) % 3;
+                player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
                 down1 = true;
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) < 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 - 1);
+               
 
                 if (laneSelectedP1 < 0)
                     laneSelectedP1 = 2;
+
+                player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
 
                 down1 = true;
             }
@@ -72,6 +90,8 @@ public class InputManager : MonoBehaviour {
             {
 
                 laneSelectedP2 = (laneSelectedP2 + 1) % 3;
+                player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
+
                 down2 = true;
             }
             else if (Input.GetAxis("Vertical" + player2Mapping) < 0 && !down2)
@@ -80,6 +100,8 @@ public class InputManager : MonoBehaviour {
 
                 if (laneSelectedP2 < 0)
                     laneSelectedP2 = 2;
+
+                 player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
 
                 down2 = true;
             }

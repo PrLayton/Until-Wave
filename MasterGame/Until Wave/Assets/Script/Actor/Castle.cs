@@ -34,7 +34,7 @@ public class Castle : MonoBehaviour {
         UpdateMesh();
 
         if (health <= 0)
-            GameManager.EndGame(true);
+            GameManager.EndGame(true, gameObject.tag == "base1" ? true : false);
     }
 
     private void UpdateMesh()
