@@ -28,6 +28,17 @@ public class WaveManager : MonoBehaviour {
                 tmp.tag = "player1";
                 tmp.layer = 13;
 
+                if(Random.Range(0.0f,1.0f) >= 0.5)
+                {
+                    tmp.GetComponent<Unit>().meshM.SetActive(false);
+                    tmp.GetComponent<Unit>().isAGirl = true;
+                }
+                else
+                {
+                    tmp.GetComponent<Unit>().meshF.SetActive(false);
+                    tmp.GetComponent<Unit>().isAGirl = false;
+                }
+
                 currentCooldownPlayer1 = cooldown;
             }
         }
@@ -39,6 +50,17 @@ public class WaveManager : MonoBehaviour {
                 GameObject tmp2 = GameObject.Instantiate(prefabUnit, spawnersPlayer2[line].transform.position, spawnersPlayer2[line].transform.rotation) as GameObject;
                 tmp2.tag = "player2";
                 tmp2.layer = 14;
+
+                if (Random.Range(0.0f, 1.0f) >= 0.5)
+                {
+                    tmp2.GetComponent<Unit>().meshM.SetActive(false);
+                    tmp2.GetComponent<Unit>().isAGirl = true;
+                }
+                else
+                {
+                    tmp2.GetComponent<Unit>().meshF.SetActive(false);
+                    tmp2.GetComponent<Unit>().isAGirl = false;
+                }
 
                 tmp2.GetComponent<Unit>().InverseSpeed();
                 currentCooldownPlayer2 = cooldown;
@@ -55,6 +77,28 @@ public class WaveManager : MonoBehaviour {
         tmp2.tag = "player2";
         tmp2.layer = 14;
         tmp2.GetComponent<Unit>().InverseSpeed();
+
+        if (Random.Range(0.0f, 1.0f) >= 0.5)
+        {
+            tmp.GetComponent<Unit>().meshM.SetActive(false);
+            tmp.GetComponent<Unit>().isAGirl = true;
+        }
+        else
+        {
+            tmp.GetComponent<Unit>().meshF.SetActive(false);
+            tmp.GetComponent<Unit>().isAGirl = false;
+        }
+
+        if (Random.Range(0.0f, 1.0f) >= 0.5)
+        {
+            tmp2.GetComponent<Unit>().meshM.SetActive(false);
+            tmp2.GetComponent<Unit>().isAGirl = true;
+        }
+        else
+        {
+            tmp2.GetComponent<Unit>().meshF.SetActive(false);
+            tmp2.GetComponent<Unit>().isAGirl = false;
+        }
     }
     
     void Update () {

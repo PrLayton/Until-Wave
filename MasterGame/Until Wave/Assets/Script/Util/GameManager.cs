@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
     static public float furyPlayer1;
     static public float furyPlayer2;
 
-    int stateWave = -1;
+    public int stateWave = -1;
     public SpriteRenderer sprtBigWaveRenderer;
     public Sprite[] sprtBigWave;
 

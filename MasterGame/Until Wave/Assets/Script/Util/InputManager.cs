@@ -36,6 +36,9 @@ public class InputManager : MonoBehaviour {
     private Image player1LaneSelector;
     private Image player2LaneSelector;
 
+    [SerializeField]
+    GameManager gameManager;
+
     // Use this for initialization
     void Start () {
         InputManager.moneyPlayer1 = moneyTrue;
@@ -142,6 +145,16 @@ public class InputManager : MonoBehaviour {
 
         Debug.Log("Player 1 :" + player1Mapping);
         Debug.Log("Player 2 :" + player2Mapping);
+
+        if(GameManager.furyPlayer1 == 1 && gameManager.stateWave == 2)
+        {
+
+        }
+        else if(GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2) {
+            {
+
+            }
+        }
 	}
 
     static public void addMoney(int _money, int _player)

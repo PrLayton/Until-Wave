@@ -22,6 +22,9 @@ public class Unit : MonoBehaviour {
     public AudioSource feedbacksSounShell;
     public AudioSource feedbacksSoundAttackCastle;
 
+    public AudioSource[] feedbacksSoundDeadM;
+    public AudioSource[] feedbacksSoundDeadF;
+
     float timerWalkFeedbackSound = 1;
 
     enum State
@@ -35,6 +38,11 @@ public class Unit : MonoBehaviour {
     State unitState;
 
     Unit currentEnemy;
+
+    public bool isAGirl;
+
+    public GameObject meshM;
+    public GameObject meshF;
 
     private Castle enemyCastle;
     // Use this for initialization
@@ -106,7 +114,17 @@ public class Unit : MonoBehaviour {
             {
                 GameManager.addFury(0.05f, 0);
             }
-            Destroy(this.gameObject, 0.3f);
+
+            if (this.gameObject.tag == "player1")
+            {
+                feedbacksSoundDeadM[Random.Range(0, feedbacksSoundDeadM.Length)].Play();
+            }
+            else
+            {
+                feedbacksSoundDeadF[Random.Range(0, feedbacksSoundDeadF.Length)].Play();
+            }
+
+            Destroy(this.gameObject, 0.5f);
             unitState = State.dead;
         }
     }
