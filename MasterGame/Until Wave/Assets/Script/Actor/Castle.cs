@@ -9,7 +9,6 @@ public class Castle : MonoBehaviour {
     [Tooltip("Indique les step du changement de mesh(destruction du chateau)")] 
     public List<uint> limitStateCastle;
 
-
     public int health; 
 
 
@@ -26,12 +25,6 @@ public class Castle : MonoBehaviour {
             UpdateMesh();
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
     public void ReceiveDamage(int damageValue)
     {
         health -= damageValue;
