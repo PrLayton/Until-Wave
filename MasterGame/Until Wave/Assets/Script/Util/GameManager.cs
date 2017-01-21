@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public float timeAnim;
     public float timerandomVariation;
     public float probSpawnShell;
+    public int moneyPerShell;
 
     public GameObject prefabShell;
 
@@ -18,10 +20,31 @@ public class GameManager : MonoBehaviour {
     float currentGeneralTimer;
     public Text generalTimerText;
 
+    public int xShellPerSecond;
+    public int yShellPerSecond;
+    public int zShellPerSecond;
+
+    float timerShell1Second = 1f;
+    float timerShell30Second = 30f;
+
+    [SerializeField]
+    Image furyContent1;
+    [SerializeField]
+    Image furyContent2;
+    public float furyFillAmount1;
+    public float furyFillAmount2;
+
+    //public static List<AudioSource> staticFeedbacksSoundAttack;
+    //public List<AudioSource> feedbacksSoundAttack;
+    //public GameObject camera;
+
     // Use this for initialization
     void Start () {
         currentTimerWave = timerWave;
         currentGeneralTimer = generalTimer;
+        //AudioSource[] aSources = camera.GetComponents<AudioSource>();
+        //staticFeedbacksSoundAttack = feedbacksSoundAttack;
+        //staticFeedbacksSoundAttack.Add(aSources[0]);
     }
 	
 	// Update is called once per frame
@@ -34,6 +57,23 @@ public class GameManager : MonoBehaviour {
         }
         currentGeneralTimer -= Time.deltaTime;
         generalTimerText.text = currentGeneralTimer.ToString();
+
+        timerShell1Second-= Time.deltaTime;
+        if (timerShell1Second <= 0)
+        {
+            InputManager.addMoney(xShellPerSecond + yShellPerSecond * zShellPerSecond, 0);
+            InputManager.addMoney(xShellPerSecond + yShellPerSecond * zShellPerSecond, 1);
+            timerShell1Second = 1.0f;
+        }
+        timerShell30Second -= Time.deltaTime;
+        if (timerShell30Second <= 0)
+        {
+            zShellPerSecond++;
+            timerShell30Second = 30.0f;
+        }
+
+        furyContent1.fillAmount = furyFillAmount1;
+        furyContent2.fillAmount = furyFillAmount2;
     }
 
     IEnumerator SendShells()
@@ -47,4 +87,9 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    /*static public void PlayAttackFeedbackSound()
+    {
+        staticFeedbacksSoundAttack[Random.Range(0, staticFeedbacksSoundAttack.Count)].Play();
+    }*/
 }
