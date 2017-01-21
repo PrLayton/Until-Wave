@@ -81,8 +81,6 @@ public class InputManager : MonoBehaviour {
             }
             else if (Input.GetAxis("Vertical" + player2Mapping) == 0)
             {
-                Debug.Log("0 player 2");
-
                 down2 = false;
             }
         }
