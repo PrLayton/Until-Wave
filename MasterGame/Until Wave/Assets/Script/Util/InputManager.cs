@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class InputManager : MonoBehaviour {
+    public int money;
 
-   static public int money;
-
-    public short laneSelected;
+    public int laneSelected;
 
     public WaveManager waveManager;
 
@@ -16,14 +15,19 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(Input.GetButtonDown("0"))
+
+	    if(Input.GetKeyDown(KeyCode.JoystickButton0))
         {
-            
+            waveManager.SendUnit(laneSelected);
         }
+        /*else if(Input.GetAxis())
+        {
+            laneSelected = (laneSelected + 1) % 3;
+        }*/
 	}
 
-    static void addMoney(int _money)
+    public void addMoney(int _money)
     {
-        InputManager.money += _money;
+        money += _money;
     }
 }
