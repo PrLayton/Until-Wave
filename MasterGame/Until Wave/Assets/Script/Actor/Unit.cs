@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TestUnit : MonoBehaviour {
+public class Unit : MonoBehaviour {
 
     public float speed;
     public float life = 2;
@@ -9,8 +9,6 @@ public class TestUnit : MonoBehaviour {
 
     public float timerAttack = 3;
     float currentTimerAttack = 0;
-
-    public Transform poolParent;
 
     enum State
     {
@@ -20,7 +18,7 @@ public class TestUnit : MonoBehaviour {
 
     State unitState;
 
-    GameObject currentEnemy;
+    Unit currentEnemy;
 
     // Use this for initialization
     void Start () {
@@ -31,7 +29,7 @@ public class TestUnit : MonoBehaviour {
 	void Update () {
         if (unitState == State.fight)
         {
-            if (currentEnemy == null || !currentEnemy.activeSelf)
+            if (currentEnemy == null)
             {
                 unitState = State.walk;
             }
@@ -45,7 +43,7 @@ public class TestUnit : MonoBehaviour {
         }
         if (unitState == State.walk)
         {
-            this.transform.Translate(this.transform.forward * 0.1f * speed);
+            this.transform.Translate(this.transform.forward * 0.01f * speed);
         }
     }
 
@@ -53,8 +51,7 @@ public class TestUnit : MonoBehaviour {
     {
         if (life <= 0)
         {
-            transform.position = poolParent.position;
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 
@@ -62,25 +59,21 @@ public class TestUnit : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if ((this.gameObject.name == "Unit1" && collision.gameObject.name == "Unit2") || this.gameObject.name == "Unit2" && collision.gameObject.name == "Unit1")
+        if ((this.gameObject.tag == "player1" && collision.gameObject.tag == "player2") || this.gameObject.tag == "player2" && collision.gameObject.tag == "player1")
             if (unitState == State.walk)
             {
-                currentEnemy = collision.gameObject;
+                currentEnemy = collision.gameObject.GetComponent<Unit>();
                 unitState = State.fight;
             }
     }
 
     void Attack()
     {
-        if (currentEnemy != null && currentEnemy.activeSelf)
-        {
-            currentEnemy.GetComponent<TestUnit>().LoseLife(attack);
-        }
+        currentEnemy.LoseLife(attack);
     }
 
     public void LoseLife(float _attack)
     {
         life -= _attack;
-        
     }
 }
