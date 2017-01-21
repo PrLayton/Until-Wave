@@ -42,8 +42,8 @@ public class InputManager : MonoBehaviour {
         InputManager.moneyPlayer2 = moneyTrue;
         InputManager.staticMoneyForSeaShell = moneyForSeaShell;
 
-        player1LaneSelector = Instantiate(player1LaneSelectorRes , player1Lanes[laneSelectedP1].transform.position , Quaternion.identity) as Image;
-        player2LaneSelector = Instantiate(player2LaneSelectorRes, player2Lanes[laneSelectedP2].transform.position, Quaternion.identity) as Image;
+        //player1LaneSelector = Instantiate(player1LaneSelectorRes , player1Lanes[laneSelectedP1].transform.position , Quaternion.identity) as Image;
+        //player2LaneSelector = Instantiate(player2LaneSelectorRes, player2Lanes[laneSelectedP2].transform.position, Quaternion.identity) as Image;
 
     }
 	
@@ -67,7 +67,7 @@ public class InputManager : MonoBehaviour {
             else if (Input.GetAxis("Vertical" + player1Mapping) > 0 && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 + 1) % 3;
-                player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
+                //player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
                 down1 = true;
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) < 0 && !down1)
@@ -78,7 +78,7 @@ public class InputManager : MonoBehaviour {
                 if (laneSelectedP1 < 0)
                     laneSelectedP1 = 2;
 
-                player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
+                //player1LaneSelector.transform.position = player1Lanes[laneSelectedP1].transform.position;
 
                 down1 = true;
             }
@@ -90,7 +90,7 @@ public class InputManager : MonoBehaviour {
             {
 
                 laneSelectedP2 = (laneSelectedP2 + 1) % 3;
-                player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
+               // player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
 
                 down2 = true;
             }
@@ -101,7 +101,7 @@ public class InputManager : MonoBehaviour {
                 if (laneSelectedP2 < 0)
                     laneSelectedP2 = 2;
 
-                 player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
+                 //player2LaneSelector.transform.position = player2Lanes[laneSelectedP2].transform.position;
 
                 down2 = true;
             }
