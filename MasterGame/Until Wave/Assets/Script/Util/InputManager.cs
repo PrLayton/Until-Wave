@@ -31,9 +31,26 @@ public class InputManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD
 
         //si on sait quel gamepad est qui, on y va
         if(player1Mapping != "" && player2Mapping != "")
+=======
+	    if(Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            waveManager.SendUnit(laneSelected, true);
+        }
+        else if(Input.GetKeyDown(KeyCode.Joystick2Button0))
+        {
+            waveManager.SendUnit(laneSelected, false);
+        }
+        else if (Input.GetAxis("VerticalJP1") > 0 && !down)
+        {
+            laneSelected = (laneSelected + 1) % 3;
+            down = true;
+        }
+        else if (Input.GetAxis("VerticalJP1") < 0 && !down)
+>>>>>>> 4e2b4ad026b7204e0cc501593f2b61d1a5b42d70
         {
 
             Debug.Log("player 22"+Input.GetAxis("Vertical" + player2Mapping));

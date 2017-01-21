@@ -42,10 +42,19 @@ public class WaveManager : MonoBehaviour {
             }
         }
     }
-	
-	void Update () {
+
+    public void SendUnit(int line)
+    {
+        GameObject tmp = GameObject.Instantiate(prefabUnit, spawnersPlayer1[line].transform.position, spawnersPlayer1[line].transform.rotation) as GameObject;
+        tmp.tag = "player1";
+        GameObject tmp2 = GameObject.Instantiate(prefabUnit, spawnersPlayer2[line].transform.position, spawnersPlayer2[line].transform.rotation) as GameObject;
+        tmp2.tag = "player2";
+    }
+
+    void Update () {
         currentCooldownPlayer1 -= Time.deltaTime;
         currentCooldownPlayer2 -= Time.deltaTime;
+        Debug.Log(currentCooldownPlayer1);
     }
 
 

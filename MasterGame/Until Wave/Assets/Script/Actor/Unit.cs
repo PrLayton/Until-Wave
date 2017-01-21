@@ -30,6 +30,7 @@ public class Unit : MonoBehaviour {
     // Use this for initialization
     void Start () {
         currentTimerAttack = timerAttack;
+        rb = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
@@ -48,10 +49,24 @@ public class Unit : MonoBehaviour {
                 currentTimerAttack = timerAttack;
             }
         }
-        if (unitState == State.walk)
+
+    }
+
+    public Vector3 teleportPoint;
+    public Rigidbody rb;
+ 
+    void FixedUpdate()
+    {
+        rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
+        print(rb.velocity);
+        if(rb.velocity.y < -1)
         {
-            this.transform.Translate(this.transform.forward * 0.01f * speed);
+            rb.velocity.Set(0, 0, 0);
         }
+        //if (unitState == State.walk)
+        //{
+        //    this.transform.Translate(this.transform.forward * 0.01f * speed);
+        //}
     }
 
     private void LateUpdate()
