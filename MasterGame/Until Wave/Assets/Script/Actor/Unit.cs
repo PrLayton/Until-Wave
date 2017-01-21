@@ -3,11 +3,18 @@ using System.Collections;
 
 public class Unit : MonoBehaviour {
 
-    public float speed;
-    public float life = 2;
-    public float attack = 1;
+    [SerializeField]
+    [Tooltip("Vitesse de l'unité")]
+    int speed;
+    [SerializeField]
+    int life;
+    [SerializeField]
+    int attack;
 
-    public float timerAttack = 3;
+    [SerializeField]
+    [Tooltip("Vitesse d'attaque de l'unité")]
+    float timerAttack = 3;
+
     float currentTimerAttack = 0;
 
     enum State
@@ -22,8 +29,8 @@ public class Unit : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
-	}
+        currentTimerAttack = timerAttack;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -65,6 +72,10 @@ public class Unit : MonoBehaviour {
                 currentEnemy = collision.gameObject.GetComponent<Unit>();
                 unitState = State.fight;
             }
+        if(collision.gameObject.tag == "seaShell")
+        {
+
+        }
     }
 
     void Attack()
@@ -72,7 +83,7 @@ public class Unit : MonoBehaviour {
         currentEnemy.LoseLife(attack);
     }
 
-    public void LoseLife(float _attack)
+    public void LoseLife(int _attack)
     {
         life -= _attack;
     }
