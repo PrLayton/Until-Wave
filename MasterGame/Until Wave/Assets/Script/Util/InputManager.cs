@@ -16,6 +16,8 @@ public class InputManager : MonoBehaviour {
     public List<GameObject> player1Lanes;
     public List<GameObject> player2Lanes;
 
+    public List<GameObject> playerUltiPoints;
+
     public GameObject player1Cursor;
     public GameObject player2Cursor;
 
@@ -60,31 +62,40 @@ public class InputManager : MonoBehaviour {
 
             if(Input.GetAxis("FuryJP1") > 0)
             {
-                if(!player2IsUlti)
-                {
-                    player1IsUlti = true;
-
-                    player1Cursor.GetComponent<CursorHandler>().ultiMode(true);
-                }
+               
             }
             else if (Input.GetAxis("FuryJP2") > 0)
+            {
+               
+
+            }
+
+            if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
+            {
+                if (!player2IsUlti)
+                {
+
+                    //valide son ulti
+                    if (player1IsUlti)
+                    {
+
+                    }
+
+                    player1IsUlti = true;
+
+                    laneSelectedP1 = laneSelectedP1 % playerUltiPoints.Count;
+
+                    Debug.Log(laneSelectedP1);
+                }
+            }
+            
+            if (Input.GetKeyDown((KeyCode)player2Pal + 4))
             {
                 if (!player1IsUlti)
                 {
                     player2IsUlti = true;
 
                 }
-
-            }
-
-            if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
-            {
-
-            }
-            
-            if (Input.GetKeyDown((KeyCode)player2Pal + 4))
-            {
-
             }
 
                 if (Input.GetKeyDown((KeyCode)player1Pal))
