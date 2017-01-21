@@ -51,6 +51,9 @@ public class GameManager : MonoBehaviour {
     public SpriteRenderer sprtBigWaveRenderer;
     public Sprite[] sprtBigWave;
 
+    public ToolAnimator animatorForLittleWave;
+    public ToolAnimator animatorForBigWave;
+
     // Use this for initialization
     void Start () {
 
@@ -66,10 +69,10 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         currentTimerWave -= Time.deltaTime;
-        if (currentTimerWave + Random.Range(-timerandomVariation, timerandomVariation) <= 0)
+        if (currentTimerWave <= timeAnim)
         {
             StartCoroutine(SendShells());
-            currentTimerWave = timerWave;
+            currentTimerWave = timerWave + Random.Range(-timerandomVariation, timerandomVariation);
         }
         currentGeneralTimer -= Time.deltaTime;
 
@@ -98,28 +101,30 @@ public class GameManager : MonoBehaviour {
         if (bigWaveTimer <= 0)
         {
             StartCoroutine(WaitAnimBigWave());
-            if(stateWave < sprtBigWave.Length-1)
-            {
-                stateWave++;
-                sprtBigWaveRenderer.sprite = sprtBigWave[stateWave];
-            }
             bigWaveTimer = 60.0f;
         }
     }
 
     IEnumerator WaitAnimBigWave()
     {
+        animatorForBigWave.PlayAnimation();
         yield return new WaitForSeconds(timeAnimBigWave);
-        //castle1.ReceiveDamage(5);
-        //castle2.ReceiveDamage(5);
+        if (stateWave < sprtBigWave.Length - 1)
+        {
+            stateWave++;
+            sprtBigWaveRenderer.sprite = sprtBigWave[stateWave];
+        }
+        castle1.ReceiveDamage(5);
+        castle2.ReceiveDamage(5);
     }
 
-        IEnumerator SendShells()
+    IEnumerator SendShells()
     {
-        yield return new WaitForSeconds(timeAnim);
+        animatorForLittleWave.PlayAnimation();
+        yield return new WaitForSeconds(timeAnim-2f);
         foreach (var item in sellPositions)
         {
-            if(Random.Range(0.0f, 1f) <= probSpawnShell)
+            if (Random.Range(0.0f, 1f) <= probSpawnShell)
             {
                 GameObject.Instantiate(prefabShell, item.transform.position, Quaternion.identity);
             }

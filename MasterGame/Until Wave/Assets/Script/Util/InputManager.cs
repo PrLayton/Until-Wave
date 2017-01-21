@@ -41,6 +41,15 @@ public class InputManager : MonoBehaviour {
     [SerializeField]
     GameManager gameManager;
 
+    [SerializeField]
+    ToolAnimator taLeftUltraWage;
+    [SerializeField]
+    float timeAnimationL;
+    [SerializeField]
+    ToolAnimator taRightUltraWage;
+    [SerializeField]
+    float timeAnimationR;
+
     // Use this for initialization
     void Start () {
         InputManager.moneyPlayer1 = moneyTrue;
@@ -208,14 +217,65 @@ public class InputManager : MonoBehaviour {
 
         if(GameManager.furyPlayer1 == 1 && gameManager.stateWave == 2)
         {
-
+            GameManager.addFury(-GameManager.furyPlayer1, 0);
+            StartCoroutine(WaitEndAnim(timeAnimationL, true));
         }
         else if(GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2) {
             {
-
+                GameManager.addFury(-GameManager.furyPlayer2, 1);
             }
         }
 	}
+
+    IEnumerator WaitEndAnim(float duration, bool leftSide)
+    {
+        if (leftSide)
+        {
+            taLeftUltraWage.PlayAnimation();
+        }
+        else
+        {
+            taRightUltraWage.PlayAnimation();
+        }
+        yield return new WaitForSeconds(duration);
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("player1");
+        GameObject[] objs2 = GameObject.FindGameObjectsWithTag("player2");
+
+        for (int i = 0; i < objs.Length; i++)
+        {
+            if (leftSide)
+            {
+                if (objs[i].transform.position.z < 0)
+                {
+                    Destroy(objs[i]);
+                }
+            }
+            else
+            {
+                if (objs[i].transform.position.z > 0)
+                {
+                    Destroy(objs[i]);
+                }
+            }
+        }
+        for (int i = 0; i < objs2.Length; i++)
+        {
+            if (leftSide)
+            {
+                if (objs2[i].transform.position.z < 0)
+                {
+                    Destroy(objs2[i]);
+                }
+            }
+            else
+            {
+                if (objs2[i].transform.position.z > 0)
+                {
+                    Destroy(objs2[i]);
+                }
+            }
+        }
+    }
 
     static public void addMoney(int _money, int _player)
     {
