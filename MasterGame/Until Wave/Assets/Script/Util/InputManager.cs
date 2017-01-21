@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour {
   static  public int moneyPlayer1;
@@ -13,9 +14,11 @@ public class InputManager : MonoBehaviour {
 
     public WaveManager waveManager;
 
+    public Text money1Text;
+    public Text money2Text;
+
     private string player1Mapping = "";
     private string player2Mapping = "";
-
 
     private int player1Pal = -1;
     private int player2Pal = -1;
@@ -110,6 +113,9 @@ public class InputManager : MonoBehaviour {
             }
         }
 
+        money1Text.text = InputManager.moneyPlayer1.ToString();
+        money2Text.text = InputManager.moneyPlayer2.ToString();
+
         Debug.Log("Player 1 :" + player1Mapping);
         Debug.Log("Player 2 :" + player2Mapping);
 	}
@@ -124,7 +130,5 @@ public class InputManager : MonoBehaviour {
         {
             moneyPlayer2 += _money;
         }
-
-        Debug.Log(moneyPlayer1);
     }
 }
