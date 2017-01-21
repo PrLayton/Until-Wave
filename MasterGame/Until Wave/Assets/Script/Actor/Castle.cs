@@ -10,13 +10,46 @@ public class Castle : MonoBehaviour {
     public List<uint> limitStateCastle;
 
 
+    public int health; 
+
+
 	// Use this for initialization
 	void Start () {
-	
+	    if(limitStateCastle.Count != meshCastleState.Count)
+        {
+            Debug.LogAssertion("La liste des mesh doit être égales au nombres d'états");
+        }
+        else
+        {
+            //Si le setup est ok on charge le premier mesh 
+
+            UpdateMesh();
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public void ReceiveDamage(int damageValue)
+    {
+        health -= damageValue;
+
+        UpdateMesh();
+    }
+
+    private void UpdateMesh()
+    {
+        //stock l'index du mesh à charger
+        int index = 0;
+
+        for(int i =0; i < limitStateCastle.Count; ++i)
+        {
+            if (limitStateCastle[i] >= health)
+                index = i;
+        }
+
+        GetComponent<MeshFilter>().mesh = meshCastleState[index];
+    }
 }
