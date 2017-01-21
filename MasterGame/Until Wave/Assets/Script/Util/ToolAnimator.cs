@@ -5,39 +5,28 @@ using UnityEngine.UI;
 public class ToolAnimator : MonoBehaviour {
 
     [SerializeField]
-    RawImage img;
-    [SerializeField]
     SpriteRenderer sprR;
-    [SerializeField]
-    bool useSprtite = false;
 
-    public Texture2D[] frames;
     public Sprite[] sprites;
-    float framesPorSegundo = 1.0f;
+    float framesPorSegundo = 2.0f;
     private int index;
 
     bool alreadyLaunched = true;
     float savedTime;
 
     [SerializeField]
-    bool loop;
+    bool loop = true;
 
     bool alreadySaveTime = false;
-
-    public void PlayAnim()
-    {
-        //savedTime = Time.time;
-        alreadyLaunched = false;
-    }
 
     // Use this for initialization
     void Start () {
         //alreadyLaunched = false;
     }
 
-    public void PlayAndLoopAnimation()
+    public void PlayAnimation()
     {
-        loop = true;
+        alreadyLaunched = false;
     }
 	
 	// Update is called once per frame
@@ -49,37 +38,19 @@ public class ToolAnimator : MonoBehaviour {
                 savedTime = Time.time;
                 alreadySaveTime = true;
             }
-            if (useSprtite)
+            if (index < sprites.Length - 1)
             {
-                if (index < sprites.Length - 1)
-                {
-                    index = (int)((Time.time - savedTime) * framesPorSegundo);
-                    index = index % sprites.Length;
-                    sprR.sprite = sprites[index];
-                }
-                else
-                {
-                    if (!loop)
-                    {
-                        alreadyLaunched = true;
-                    }
-                }
+                index = (int)((Time.time - savedTime) * framesPorSegundo);
+                index = index % sprites.Length;
+                sprR.sprite = sprites[index];
             }
             else
             {
-                if (index < frames.Length - 1)
+                if (!loop)
                 {
-                    index = (int)((Time.time - savedTime) * framesPorSegundo);
-                    index = index % frames.Length;
-                    img.texture = frames[index];
+                    alreadyLaunched = true;
                 }
-                else
-                {
-                    if (!loop)
-                    {
-                        alreadyLaunched = true;
-                    }
-                }
+                index = 0;
             }
         }
 

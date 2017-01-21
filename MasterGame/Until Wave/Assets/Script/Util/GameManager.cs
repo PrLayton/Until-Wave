@@ -110,8 +110,8 @@ public class GameManager : MonoBehaviour {
     IEnumerator WaitAnimBigWave()
     {
         yield return new WaitForSeconds(timeAnimBigWave);
-        castle1.ReceiveDamage(5);
-        castle2.ReceiveDamage(5);
+        //castle1.ReceiveDamage(5);
+        //castle2.ReceiveDamage(5);
     }
 
         IEnumerator SendShells()
