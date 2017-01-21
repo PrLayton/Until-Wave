@@ -36,7 +36,7 @@ public class InputManager : MonoBehaviour {
         if(player1Mapping != "" && player2Mapping != "")
         {
 
-            Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
+           // Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
 
             if (Input.GetKeyDown((KeyCode)player2Pal))
             {
@@ -62,12 +62,10 @@ public class InputManager : MonoBehaviour {
             }
             else if (Input.GetAxis("Vertical" + player1Mapping) == 0)
             {
-                Debug.Log("qsd lol");
                 down1 = false;
             }
-            else if (Input.GetAxis("Vertical" + player2Mapping) > 0 && !down2)
+             if (Input.GetAxis("Vertical" + player2Mapping) > 0 && !down2)
             {
-                Debug.Log("qsdqsd");
 
                 laneSelectedP2 = (laneSelectedP2 + 1) % 3;
                 down2 = true;
@@ -83,17 +81,21 @@ public class InputManager : MonoBehaviour {
             }
             else if (Input.GetAxis("Vertical" + player2Mapping) == 0)
             {
-                Debug.Log(Input.GetAxis("Vertical" + player2Mapping));
+                Debug.Log("0 player 2");
+
                 down2 = false;
             }
         }
-	   
         else // demande aux joueurs d'appuyer sur une touche pour savoir qui est qui
         {
              for(int i = 350; i <= 490; i+=20)
             {
+
                 if (Input.GetKeyDown((KeyCode) i))
                 {
+
+                    //Debug.Log(i);
+
                     if (player1Mapping == "")
                     {
                         player1Mapping = "JP" + (((i - 350) / 20) + 1);
