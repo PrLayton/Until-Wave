@@ -44,8 +44,11 @@ public class Unit : MonoBehaviour {
 
     public bool isAGirl;
 
-    public GameObject meshM;
-    public GameObject meshF;
+    public GameObject meshMP1;
+    public GameObject meshFP1;
+
+    public GameObject meshMP2;
+    public GameObject meshFP2;
 
     private Castle enemyCastle;
     // Use this for initialization
