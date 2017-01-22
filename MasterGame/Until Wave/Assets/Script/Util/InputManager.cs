@@ -87,11 +87,21 @@ public class InputManager : MonoBehaviour {
 
             if(Input.GetKeyDown((KeyCode) player1Pal + 4))//LB
             {
-                Debug.Log("LB 1");
+                if (moneyPlayer1 >= fixPrice)
+                {
+                    moneyPlayer1 -= fixPrice;
+
+                    castleP1.ReceiveFix(fixAmount);
+                }
             }
             else if(Input.GetKeyDown((KeyCode)player2Pal + 4))
             {
-                Debug.Log("LB 2");
+                if (moneyPlayer2 >= fixPrice)
+                {
+                    moneyPlayer2 -= fixPrice;
+
+                    castleP2.ReceiveFix(fixAmount);
+                }
             }
 
             if (Input.GetKeyDown((KeyCode)player1Pal + 5))//RB
@@ -103,24 +113,9 @@ public class InputManager : MonoBehaviour {
                 Debug.Log("RB 2");
             }
 
-
-            if (Input.GetAxis("LeftDoorJP1") > 0)//LT
+            if (Input.GetAxis("RightDoorJP1") > 0)//RT
             {
-               if(moneyPlayer1 >= fixPrice)
-                {
-                    moneyPlayer1 -= fixPrice;
 
-                    castleP1.ReceiveFix(fixAmount);
-                }
-            }
-            else if (Input.GetAxis("LeftDoorJP2") > 0)
-            {
-               
-
-            }
-
-            if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
-            {
                 if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
                 {
                     GameManager.addFury(-GameManager.furyPlayer1, 0);
@@ -135,7 +130,7 @@ public class InputManager : MonoBehaviour {
                     //valide son ulti
                     if (!player1IsUlti)
                     {
-                        
+
                     }
 
 
@@ -144,6 +139,34 @@ public class InputManager : MonoBehaviour {
                     Debug.Log(laneSelectedP1);
                 }
             }
+            else if (Input.GetAxis("RightDoorJP2") > 0)
+            {
+
+
+            }
+
+            if (Input.GetAxis("LeftDoorJP1") > 0)//LT
+            {
+
+                if (GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2)
+                {
+                    {
+                        GameManager.addFury(-GameManager.furyPlayer2, 1);
+                    }
+                }
+
+                if (!player1IsUlti)
+                {
+                    player2IsUlti = true;
+                }
+            }
+            else if (Input.GetAxis("LeftDoorJP2") > 0)
+            {
+               
+
+            }
+
+       
 
             
             
