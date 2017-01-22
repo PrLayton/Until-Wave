@@ -38,6 +38,7 @@ public class ToolAnimator : MonoBehaviour {
     public void PlayAnimation()
     {
         alreadyLaunched = false;
+        alreadySaveTime = false;
         index = 0;
 
         cycleAnim = secAnim / sprites.Length;

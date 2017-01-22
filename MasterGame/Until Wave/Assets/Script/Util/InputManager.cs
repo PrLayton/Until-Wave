@@ -49,6 +49,16 @@ public class InputManager : MonoBehaviour {
     ToolAnimator taRightUltraWage;
     [SerializeField]
     float timeAnimationR;
+    [SerializeField]
+    AudioSource ultraWaveAudioL;
+    [SerializeField]
+    AudioSource ultraWaveAudioR;
+
+    public int wallPlayer1 = 0;
+    public int wallPlayer2 = 0;
+    public int wallPV;
+    public GameObject[] wallsPlayer1;
+    public GameObject[] wallsPlayer2;
 
     // Use this for initialization
     void Start () {
@@ -227,8 +237,13 @@ public class InputManager : MonoBehaviour {
         money1Text.text = InputManager.moneyPlayer1.ToString();
         money2Text.text = InputManager.moneyPlayer2.ToString();
 
-        Debug.Log("Player 1 :" + player1Mapping);
-        Debug.Log("Player 2 :" + player2Mapping);
+        //Debug.Log("Player 1 :" + player1Mapping);
+        //Debug.Log("Player 2 :" + player2Mapping);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            AddWall(true, 1);
+        }
 	}
 
     IEnumerator WaitEndAnim(float duration, bool leftSide)
@@ -236,10 +251,12 @@ public class InputManager : MonoBehaviour {
         if (leftSide)
         {
             taLeftUltraWage.PlayAnimation();
+            ultraWaveAudioL.Play();
         }
         else
         {
             taRightUltraWage.PlayAnimation();
+            ultraWaveAudioR.Play();
         }
         yield return new WaitForSeconds(duration);
         GameObject[] objs = GameObject.FindGameObjectsWithTag("player1");
@@ -276,6 +293,48 @@ public class InputManager : MonoBehaviour {
                 if (objs2[i].transform.position.z > 0)
                 {
                     Destroy(objs2[i]);
+                }
+            }
+        }
+    }
+
+    public void AddWall(bool isPlayer1, int _value)
+    {
+        if (isPlayer1)
+        {
+            if(wallPlayer1 < wallsPlayer1.Length)
+            {
+                wallPlayer1 = wallPlayer1 + _value;
+            }
+
+            for (int i = 1; i < wallsPlayer1.Length+1; i++)
+            {
+                if(i<= wallPlayer1)
+                {
+                    wallsPlayer1[i-1].SetActive(true);
+                }
+                else
+                {
+                    wallsPlayer1[i-1].SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            if (wallPlayer2 < wallsPlayer1.Length)
+            {
+                wallPlayer2 = wallPlayer2 + _value;
+            }
+
+            for (int i = 1; i < wallsPlayer2.Length + 1; i++)
+            {
+                if (i <= wallPlayer2)
+                {
+                    wallsPlayer2[i - 1].SetActive(true);
+                }
+                else
+                {
+                    wallsPlayer2[i - 1].SetActive(false);
                 }
             }
         }

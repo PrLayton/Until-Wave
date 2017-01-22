@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 
     public float timerLittleWave;
     float currentTimerWave;
-    public float timeAnim;
+    public float timeAnimLittleWave;
     public float timerandomVariation;
     bool littleWaveLaunched;
     bool shellLaunched;
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour {
     public float bigWaveTimer = 60;
     public Castle castle1;
     public Castle castle2;
+    public int bigWaveDammage = 20;
 
     static public float furyPlayer1;
     static public float furyPlayer2;
@@ -64,54 +65,47 @@ public class GameManager : MonoBehaviour {
     public ToolAnimator animatorForLittleWave;
     public ToolAnimator animatorForBigWave;
 
+    public AudioSource littleWaveAudio;
+    public AudioSource bigWaveAudio;
+    public AudioSource addWaveStateAudio;
+
+    [SerializeField]
+    InputManager inputManager;
+
     // Use this for initialization
     void Start () {
-
-        currentTimerWave = timerLittleWave;
+        currentTimerWave = 0;
         currentGeneralTimer = generalTimer;
         //AudioSource[] aSources = camera.GetComponents<AudioSource>();
         //staticFeedbacksSoundAttack = feedbacksSoundAttack;
         //staticFeedbacksSoundAttack.Add(aSources[0]);
         furyPlayer1 = 0;
         furyPlayer2 = 0;
+        littleWaveLaunched = false;
         shellLaunched = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
         currentTimerWave -= Time.deltaTime;
+
         if (!littleWaveLaunched)
         {
-            if (currentTimerWave - timeAnim <= 0)
+            if (currentTimerWave - timeAnimLittleWave <= 0)
             {
-                //StartCoroutine(SendShells());
+                StartCoroutine(SendShells());
                 //animatorForLittleWave.PlayAnimation();
                 littleWaveLaunched = true;
-                shellLaunched = false;
+                // shellLaunched = false;
             }
         }
-        //if (!shellLaunched)
-        //{
-        if (currentTimerWave <= 0.0f)
-        {
-            foreach (var item in sellPositions)
-            {
-                if (Random.Range(0.0f, 1f) <= probSpawnShell)
-                {
-                    GameObject.Instantiate(prefabShell, item.transform.position, Quaternion.identity);
-                }
-            }
-            currentTimerWave = timerLittleWave;
-            // shellLaunched = true;
-        }
-        //}
 
 
-        /*if (currentTimerWave <= 0)
+        if (currentTimerWave <= 0)
         {
             currentTimerWave = timerLittleWave;//+ Random.Range(-timerandomVariation, timerandomVariation);
             littleWaveLaunched = false;
-        }*/
+        }
 
         currentGeneralTimer -= Time.deltaTime;
 
@@ -149,14 +143,16 @@ public class GameManager : MonoBehaviour {
     IEnumerator WaitAnimBigWave()
     {
         animatorForBigWave.PlayAnimation();
+        bigWaveAudio.Play();
         yield return new WaitForSeconds(timeAnimBigWave);
         if (stateWave < sprtBigWave.Length - 1)
         {
             stateWave++;
             sprtBigWaveRenderer.sprite = sprtBigWave[stateWave];
+            addWaveStateAudio.Play();
         }
-        castle1.ReceiveDamage(5);
-        castle2.ReceiveDamage(5);
+        castle1.ReceiveDamage(bigWaveDammage/inputManager.wallPlayer1);
+        castle2.ReceiveDamage(bigWaveDammage/inputManager.wallPlayer1);
     }
 
     public void ResetBigWave()
@@ -168,7 +164,8 @@ public class GameManager : MonoBehaviour {
     IEnumerator SendShells()
     {
         animatorForLittleWave.PlayAnimation();
-        yield return new WaitForSeconds(timeAnim-2f);
+        littleWaveAudio.Play();
+        yield return new WaitForSeconds(timeAnimLittleWave- timeAnimLittleWave/1.8f);
         foreach (var item in sellPositions)
         {
             if (Random.Range(0.0f, 1f) <= probSpawnShell)
