@@ -110,6 +110,8 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(WaitAnimBigWave());
             bigWaveTimer = 60.0f;
         }
+        if (currentGeneralTimer <= 0)
+            EndGame(false, castle1.health >= castle2.health ? true : false);
     }
 
     IEnumerator WaitAnimBigWave()
