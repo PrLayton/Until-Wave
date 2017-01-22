@@ -13,10 +13,13 @@ public enum EWin
 }
 public class GameManager : MonoBehaviour {
 
-    public float timerWave;
+    public float timerLittleWave;
     float currentTimerWave;
     public float timeAnim;
     public float timerandomVariation;
+    bool littleWaveLaunched;
+    bool shellLaunched;
+
     public float probSpawnShell;
     public int moneyPerShell;
 
@@ -64,23 +67,52 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        currentTimerWave = timerWave;
+        currentTimerWave = timerLittleWave;
         currentGeneralTimer = generalTimer;
         //AudioSource[] aSources = camera.GetComponents<AudioSource>();
         //staticFeedbacksSoundAttack = feedbacksSoundAttack;
         //staticFeedbacksSoundAttack.Add(aSources[0]);
         furyPlayer1 = 0;
         furyPlayer2 = 0;
+        shellLaunched = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
         currentTimerWave -= Time.deltaTime;
-        if (currentTimerWave <= timeAnim)
+        if (!littleWaveLaunched)
         {
-            StartCoroutine(SendShells());
-            currentTimerWave = timerWave + Random.Range(-timerandomVariation, timerandomVariation);
+            if (currentTimerWave - timeAnim <= 0)
+            {
+                //StartCoroutine(SendShells());
+                //animatorForLittleWave.PlayAnimation();
+                littleWaveLaunched = true;
+                shellLaunched = false;
+            }
         }
+        //if (!shellLaunched)
+        //{
+        if (currentTimerWave <= 0.0f)
+        {
+            foreach (var item in sellPositions)
+            {
+                if (Random.Range(0.0f, 1f) <= probSpawnShell)
+                {
+                    GameObject.Instantiate(prefabShell, item.transform.position, Quaternion.identity);
+                }
+            }
+            currentTimerWave = timerLittleWave;
+            // shellLaunched = true;
+        }
+        //}
+
+
+        /*if (currentTimerWave <= 0)
+        {
+            currentTimerWave = timerLittleWave;//+ Random.Range(-timerandomVariation, timerandomVariation);
+            littleWaveLaunched = false;
+        }*/
+
         currentGeneralTimer -= Time.deltaTime;
 
         generalTimerText.text = currentGeneralTimer.ToString();
@@ -128,7 +160,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator SendShells()
     {
         animatorForLittleWave.PlayAnimation();
-        yield return new WaitForSeconds(timeAnim);
+        yield return new WaitForSeconds(timeAnim-2f);
         foreach (var item in sellPositions)
         {
             if (Random.Range(0.0f, 1f) <= probSpawnShell)

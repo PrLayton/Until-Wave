@@ -11,6 +11,13 @@ public class ToolAnimator : MonoBehaviour {
     float framesPorSegundo = 2.0f;
     private int index;
 
+    //combien de temps dure l'anim
+    public float secAnim;
+    private float cycleAnim;
+
+    //indique toutes les combiens de secondes on a l'animation
+    public float timeCycleAnim;
+
     bool alreadyLaunched = true;
     float savedTime;
 
@@ -18,6 +25,10 @@ public class ToolAnimator : MonoBehaviour {
     bool loop = false;
 
     bool alreadySaveTime = false;
+
+    private float timeImage = 0.0f;
+    private float timeAnim = 0.0f;
+    private int indexImage;
 
     // Use this for initialization
     void Start () {
@@ -28,10 +39,34 @@ public class ToolAnimator : MonoBehaviour {
     {
         alreadyLaunched = false;
         index = 0;
+
+        cycleAnim = secAnim / sprites.Length;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
+        
+       /* timeAnim += Time.deltaTime;
+
+        //need to anim
+        if(timeAnim >= timeCycleAnim)
+        {
+            timeImage += Time.deltaTime;
+
+            if (timeImage >= cycleAnim)
+            {
+                indexImage = (indexImage + 1) % sprites.Length;
+
+                sprR.sprite = sprites[index];
+
+                timeImage = 0.0f;
+            }
+
+            timeAnim = 0.0f;
+        }*/
+        
+
         if (!alreadyLaunched)
         {
             if (!alreadySaveTime)
@@ -54,6 +89,5 @@ public class ToolAnimator : MonoBehaviour {
                 sprR.sprite = null;
             }
         }
-
     }
 }
