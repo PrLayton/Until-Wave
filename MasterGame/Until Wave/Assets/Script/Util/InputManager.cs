@@ -56,7 +56,7 @@ public class InputManager : MonoBehaviour {
 
     public int wallPlayer1 = 0;
     public int wallPlayer2 = 0;
-    public int wallPV;
+    public int wallPrice = 100;
     public GameObject[] wallsPlayer1;
     public GameObject[] wallsPlayer2;
 
@@ -116,11 +116,19 @@ public class InputManager : MonoBehaviour {
 
             if (Input.GetKeyDown((KeyCode)player1Pal + 5))//RB
             {
-                Debug.Log("RB 1");
+                if (InputManager.moneyPlayer1 - wallPrice >= 0)
+                {
+                    InputManager.addMoney(-wallPrice, 0);
+                    AddWall(true, 1);
+                }
             }
             else if (Input.GetKeyDown((KeyCode)player2Pal + 5))
             {
-                Debug.Log("RB 2");
+                if (InputManager.moneyPlayer2 - wallPrice >= 0)
+                {
+                    InputManager.addMoney(-wallPrice, 1);
+                    AddWall(false, 1);
+                }
             }
 
             if (Input.GetAxis("RightDoorJP1") > 0)//RT
@@ -130,54 +138,38 @@ public class InputManager : MonoBehaviour {
                 {
                     GameManager.addFury(-GameManager.furyPlayer1, 0);
                     gameManager.ResetBigWave();
-                    StartCoroutine(WaitEndAnim(timeAnimationL, false));
-                }
-
-                if (!player2IsUlti)
-                {
-                    player1IsUlti = true;
-
-                    //valide son ulti
-                    if (!player1IsUlti)
-                    {
-
-                    }
-
-
-                    //laneSelectedP1 = laneSelectedP1 % playerUltiPoints.Count;
-
-                    Debug.Log(laneSelectedP1);
+                    StartCoroutine(WaitEndAnim(timeAnimationR, false));
                 }
             }
             else if (Input.GetAxis("RightDoorJP2") > 0)
             {
-
-
+                if (GameManager.furyPlayer2 >= 1 && gameManager.stateWave == 1)
+                {
+                    GameManager.addFury(-GameManager.furyPlayer2, 1);
+                    gameManager.ResetBigWave();
+                    StartCoroutine(WaitEndAnim(timeAnimationR, false));
+                }
             }
 
             if (Input.GetAxis("LeftDoorJP1") > 0)//LT
             {
 
-                if (GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2)
+                if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
                 {
-                    {
-                        GameManager.addFury(-GameManager.furyPlayer2, 1);
-                    }
-                }
-
-                if (!player1IsUlti)
-                {
-                    player2IsUlti = true;
+                    GameManager.addFury(-GameManager.furyPlayer1, 0);
+                    gameManager.ResetBigWave();
+                    StartCoroutine(WaitEndAnim(timeAnimationL, true));
                 }
             }
             else if (Input.GetAxis("LeftDoorJP2") > 0)
             {
-               
-
+                if (GameManager.furyPlayer2 >= 1 && gameManager.stateWave == 1)
+                {
+                    GameManager.addFury(-GameManager.furyPlayer2, 1);
+                    gameManager.ResetBigWave();
+                    StartCoroutine(WaitEndAnim(timeAnimationL, true));
+                }
             }
-
-       
-
             
             
             if (Input.GetKeyDown((KeyCode)player2Pal + 4))
