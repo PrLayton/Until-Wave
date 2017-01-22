@@ -48,7 +48,7 @@ public class UI : MonoBehaviour {
 
             if (optionSelected == 1)
             {
-                SceneManager.LoadScene("TestScene");
+                SceneManager.LoadScene("TutoScene");
             }
             else
             {
@@ -59,7 +59,7 @@ public class UI : MonoBehaviour {
         {
             if(!down)
             {
-                AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
+                //AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
                 if (optionSelected == 1)
                 {
                     optionSelected = 2;
@@ -70,6 +70,7 @@ public class UI : MonoBehaviour {
                     optionSelected = 1;
                     selector.transform.position = startText.transform.position - new Vector3(210, 0, 0);
                 }
+                down = true;
             }
             
         }
@@ -77,7 +78,7 @@ public class UI : MonoBehaviour {
         {
             if (!down)
             {
-                AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
+                //AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
                 if (optionSelected == 1)
                 {
                     optionSelected = 2;

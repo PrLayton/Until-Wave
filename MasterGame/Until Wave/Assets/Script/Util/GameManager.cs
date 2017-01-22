@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!endTimerPlayed && currentGeneralTimer -5.0f <= 0f)
+        if (!endTimerPlayed && currentGeneralTimer -3.0f <= 0f)
         {
             endTimerAudio.Play();
             endTimerPlayed = true;
