@@ -81,10 +81,11 @@ public class InputManager : MonoBehaviour {
 
             if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
             {
-                if (GameManager.furyPlayer1 == 1 && gameManager.stateWave == 2)
+                if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
                 {
                     GameManager.addFury(-GameManager.furyPlayer1, 0);
-                    StartCoroutine(WaitEndAnim(timeAnimationL, true));
+                    gameManager.ResetBigWave();
+                    StartCoroutine(WaitEndAnim(timeAnimationL, false));
                 }
 
                 if (!player2IsUlti)

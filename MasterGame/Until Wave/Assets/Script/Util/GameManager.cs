@@ -159,6 +159,12 @@ public class GameManager : MonoBehaviour {
         castle2.ReceiveDamage(5);
     }
 
+    public void ResetBigWave()
+    {
+        stateWave = - 1;
+        sprtBigWaveRenderer.sprite = null;
+    }
+
     IEnumerator SendShells()
     {
         animatorForLittleWave.PlayAnimation();
@@ -191,13 +197,16 @@ public class GameManager : MonoBehaviour {
 
     static public void addFury(float _value, int _player)
     {
-        if (_player == 0)
+        if (furyPlayer1 < 1)
         {
-            furyPlayer1 += _value;
-        }
-        else
-        {
-            furyPlayer2 += _value;
+            if (_player == 0)
+            {
+                furyPlayer1 += _value;
+            }
+            else
+            {
+                furyPlayer2 += _value;
+            }
         }
     }
 }
