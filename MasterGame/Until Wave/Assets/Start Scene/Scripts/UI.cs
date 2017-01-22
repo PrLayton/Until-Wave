@@ -42,11 +42,6 @@ public class UI : MonoBehaviour {
                 AudioSource.PlayClipAtPoint(menu_music, new Vector3(0, 0, 0));
             }
 
-
-            // si le joueur 1 est mappé on y va
-            if (player1Mapping != "")
-            {
-
                 if (Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
                     AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
@@ -60,7 +55,7 @@ public class UI : MonoBehaviour {
                         Application.Quit();
                     }
                 }
-                else if ((Input.GetAxis("Vertical" + player1Mapping) > 0 || Input.GetAxis("Vertical" + player1Mapping) < 0) && !down)
+                else if ((Input.GetAxis("VerticalJP1") > 0 || Input.GetAxis("VerticalJP1") < 0) && !down)
                 {
                     AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
                     if (optionSelected == 1)
@@ -75,24 +70,8 @@ public class UI : MonoBehaviour {
                     }
                     down = true;
                 }
-                else if (Input.GetAxis("Vertical" + player1Mapping) == 0)
-                    down = false;
-
-            }
-            else // on map le joueur 1
-            {
-                for (int i = 350; i <= 490; i += 20)
-                {
-                    if (Input.GetKeyDown((KeyCode)i))
-                    {
-                        if (player1Mapping == "")
-                        {
-                            player1Mapping = "JP" + (((i - 350) / 20) + 1);
-                            player1Pal = i;
-                        }
-                    }
-                }
-            }
+                else if (Input.GetAxis("VerticaJP1") == 0)
+                    down = false;        
         }
 
         
