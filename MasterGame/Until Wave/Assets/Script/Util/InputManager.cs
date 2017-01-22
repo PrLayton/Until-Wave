@@ -202,7 +202,7 @@ public class InputManager : MonoBehaviour {
             waveManager.SendUnit(laneSelectedP2, false);
             player2Cursor.GetComponent<CursorHandler>().Activated();
         }
-        else if (Input.GetAxis("Vertical" + player1Mapping) > 0.2f && !down1)
+        else if (Input.GetAxis("VerticalJP1") > 0.2f && !down1)
         {
             laneSelectedP1 = (laneSelectedP1 + 1) % 3;
             Vector3 pos = player1Cursor.transform.position;
@@ -213,7 +213,7 @@ public class InputManager : MonoBehaviour {
             player1Cursor.transform.position = pos;
             down1 = true;
         }
-        else if (Input.GetAxis("Vertical" + player1Mapping) < -0.2f && !down1)
+        else if (Input.GetAxis("VerticalJP1") < -0.2f && !down1)
         {
             laneSelectedP1 = (laneSelectedP1 - 1);
                
@@ -230,11 +230,11 @@ public class InputManager : MonoBehaviour {
 
             down1 = true;
         }
-        else if (Input.GetAxis("Vertical" + player1Mapping) > -0.2f && Input.GetAxis("Vertical" + player1Mapping) < 0.2f)
+        else if (Input.GetAxis("VerticalJP1") > -0.2f && Input.GetAxis("VerticalJP1") < 0.2f)
         {
             down1 = false;
         }
-            if (Input.GetAxis("Vertical" + player2Mapping) > 0.2f && !down2)
+            if (Input.GetAxis("VerticalJP2") > 0.2f && !down2)
         {
 
             laneSelectedP2 = (laneSelectedP2 + 1) % 3;
@@ -247,7 +247,7 @@ public class InputManager : MonoBehaviour {
 
             down2 = true;
         }
-        else if (Input.GetAxis("Vertical" + player2Mapping) < -0.2f && !down2)
+        else if (Input.GetAxis("VerticalJP2") < -0.2f && !down2)
         {
             laneSelectedP2 = (laneSelectedP2 - 1);
 
@@ -263,7 +263,7 @@ public class InputManager : MonoBehaviour {
 
             down2 = true;
         }
-        else if (Input.GetAxis("Vertical" + player2Mapping) > -0.2f && Input.GetAxis("Vertical" + player2Mapping) < 0.2f)
+        else if (Input.GetAxis("VerticalJP2") > -0.2f && Input.GetAxis("VerticalJP2") < 0.2f)
         {
             down2 = false;
         }
