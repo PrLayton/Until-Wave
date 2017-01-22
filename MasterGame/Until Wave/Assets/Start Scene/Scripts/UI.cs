@@ -17,9 +17,10 @@ public class UI : MonoBehaviour {
 
     private string player1Mapping = "";
     private int player1Pal = -1;
-    private bool down = false;
 
     private float timeElapsed = 0;
+
+    private bool down = false;
 
     // Use this for initialization
     void Start () {
@@ -42,38 +43,65 @@ public class UI : MonoBehaviour {
                 AudioSource.PlayClipAtPoint(menu_music, new Vector3(0, 0, 0));
             }
 
-                if (Input.GetKeyDown(KeyCode.JoystickButton0))
-                {
-                    AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
-
-                    if (optionSelected == 1)
-                    {
-                        SceneManager.LoadScene("TestScene");
-                    }
-                    else
-                    {
-                        Application.Quit();
-                    }
-                }
-                else if ((Input.GetAxis("VerticalJP1") > 0 || Input.GetAxis("VerticalJP1") < 0) && !down)
-                {
-                    AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
-                    if (optionSelected == 1)
-                    {
-                        optionSelected = 2;
-                        selector.transform.position = quitText.transform.position - new Vector3(310, 0, 0);
-                    }
-                    else
-                    {
-                        optionSelected = 1;
-                        selector.transform.position = startText.transform.position - new Vector3(210, 0, 0);
-                    }
-                    down = true;
-                }
-                else if (Input.GetAxis("VerticaJP1") == 0)
-                    down = false;        
+                  
         }
 
-        
+        if (Input.GetKeyDown(KeyCode.JoystickButton0))
+        {
+            AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
+
+            if (optionSelected == 1)
+            {
+                SceneManager.LoadScene("TestScene");
+            }
+            else
+            {
+                Application.Quit();
+            }
+        }
+        else if (Input.GetAxis("VerticalJP1") > 0.5f)
+        {
+            if(!down)
+            {
+                AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
+                if (optionSelected == 1)
+                {
+                    optionSelected = 2;
+                    selector.transform.position = quitText.transform.position - new Vector3(310, 0, 0);
+                }
+                else
+                {
+                    optionSelected = 1;
+                    selector.transform.position = startText.transform.position - new Vector3(210, 0, 0);
+                }
+
+                down = true;
+            }
+            
+        }
+        else if ((Input.GetAxis("VerticalJP1") < -0.5f))
+        {
+            if (!down)
+            {
+                AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
+                if (optionSelected == 1)
+                {
+                    optionSelected = 2;
+                    selector.transform.position = quitText.transform.position - new Vector3(310, 0, 0);
+                }
+                else
+                {
+                    optionSelected = 1;
+                    selector.transform.position = startText.transform.position - new Vector3(210, 0, 0);
+                }
+
+                down = true;
+            }
+        }
+        else if(Input.GetAxis("VerticalJP1") < 0.2f || Input.GetAxis("VerticalJP1") > -0.2f)
+        {
+            down = false;
+        }
+
     }
 }
