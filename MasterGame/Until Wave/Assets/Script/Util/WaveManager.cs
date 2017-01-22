@@ -54,6 +54,9 @@ public class WaveManager : MonoBehaviour {
                 tmp2.tag = "player2";
                 tmp2.layer = 14;
 
+                tmp2.GetComponent<Unit>().meshMP1.SetActive(false);
+                tmp2.GetComponent<Unit>().meshFP1.SetActive(false);
+
                 if (Random.Range(0.0f, 1.0f) >= 0.5)
                 {
                     tmp2.GetComponent<Unit>().meshMP2.SetActive(false);
