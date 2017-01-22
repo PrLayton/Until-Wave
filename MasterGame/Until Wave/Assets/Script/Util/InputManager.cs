@@ -29,8 +29,8 @@ public class InputManager : MonoBehaviour {
     private string player1Mapping = "";
     private string player2Mapping = "";
 
-    private int player1Pal = -1;
-    private int player2Pal = -1;
+    private int player1Pal = 350;
+    private int player2Pal = 370;
 
     private bool down1 = false;
     private bool down2 = false;
@@ -53,6 +53,8 @@ public class InputManager : MonoBehaviour {
     AudioSource ultraWaveAudioL;
     [SerializeField]
     AudioSource ultraWaveAudioR;
+
+    public AudioSource fixAudio;
 
     public int wallPlayer1 = 0;
     public int wallPlayer2 = 0;
@@ -88,206 +90,185 @@ public class InputManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //si on sait quel gamepad est qui, on y va
-        if(player1Mapping != "" && player2Mapping != "")
-        {
-
+       
+       
+       
            // Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
 
-
-            if(Input.GetKeyDown((KeyCode) player1Pal + 4))//LB
+        //repair
+        if(Input.GetKeyDown((KeyCode) player1Pal + 4))//LB
+        {
+            if (moneyPlayer1 >= fixPrice)
             {
-                if (moneyPlayer1 >= fixPrice)
-                {
-                    moneyPlayer1 -= fixPrice;
+                moneyPlayer1 -= fixPrice;
 
-                    castleP1.ReceiveFix(fixAmount);
-                }
-            }
-            else if(Input.GetKeyDown((KeyCode)player2Pal + 4))
-            {
-                if (moneyPlayer2 >= fixPrice)
-                {
-                    moneyPlayer2 -= fixPrice;
+                castleP1.ReceiveFix(fixAmount);
 
-                    castleP2.ReceiveFix(fixAmount);
-                }
+                fixAudio.Play();
             }
+        }
+        else if(Input.GetKeyDown((KeyCode)player2Pal + 4))
+        {
+            if (moneyPlayer2 >= fixPrice)
+            {
+                moneyPlayer2 -= fixPrice;
 
-            if (Input.GetKeyDown((KeyCode)player1Pal + 5))//RB
-            {
-                if (InputManager.moneyPlayer1 - wallPrice >= 0)
-                {
-                    InputManager.addMoney(-wallPrice, 0);
-                    AddWall(true, 1);
-                }
-            }
-            else if (Input.GetKeyDown((KeyCode)player2Pal + 5))
-            {
-                if (InputManager.moneyPlayer2 - wallPrice >= 0)
-                {
-                    InputManager.addMoney(-wallPrice, 1);
-                    AddWall(false, 1);
-                }
-            }
+                castleP2.ReceiveFix(fixAmount);
 
-            if (Input.GetAxis("RightDoorJP1") > 0)//RT
-            {
+                fixAudio.Play();
+            }
+        }
 
-                if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
-                {
-                    GameManager.addFury(-GameManager.furyPlayer1, 0);
-                    gameManager.ResetBigWave();
-                    StartCoroutine(WaitEndAnim(timeAnimationR, false));
-                }
-            }
-            else if (Input.GetAxis("RightDoorJP2") > 0)
+        if (Input.GetKeyDown((KeyCode)player1Pal + 5))//RB
+        {
+            if (InputManager.moneyPlayer1 - wallPrice >= 0)
             {
-                if (GameManager.furyPlayer2 >= 1 && gameManager.stateWave == 1)
-                {
-                    GameManager.addFury(-GameManager.furyPlayer2, 1);
-                    gameManager.ResetBigWave();
-                    StartCoroutine(WaitEndAnim(timeAnimationR, false));
-                }
+                InputManager.addMoney(-wallPrice, 0);
+                AddWall(true, 1);
             }
+        }
+        else if (Input.GetKeyDown((KeyCode)player2Pal + 5))
+        {
+            if (InputManager.moneyPlayer2 - wallPrice >= 0)
+            {
+                InputManager.addMoney(-wallPrice, 1);
+                AddWall(false, 1);
+            }
+        }
 
-            if (Input.GetAxis("LeftDoorJP1") > 0)//LT
-            {
+        if (Input.GetAxis("RightDoorJP1") > 0)//RT
+        {
 
-                if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
-                {
-                    GameManager.addFury(-GameManager.furyPlayer1, 0);
-                    gameManager.ResetBigWave();
-                    StartCoroutine(WaitEndAnim(timeAnimationL, true));
-                }
-            }
-            else if (Input.GetAxis("LeftDoorJP2") > 0)
+            if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
             {
-                if (GameManager.furyPlayer2 >= 1 && gameManager.stateWave == 1)
-                {
-                    GameManager.addFury(-GameManager.furyPlayer2, 1);
-                    gameManager.ResetBigWave();
-                    StartCoroutine(WaitEndAnim(timeAnimationL, true));
-                }
+                GameManager.addFury(-GameManager.furyPlayer1, 0);
+                gameManager.ResetBigWave();
+                StartCoroutine(WaitEndAnim(timeAnimationR, false));
             }
+        }
+        else if (Input.GetAxis("RightDoorJP2") > 0)
+        {
+            if (GameManager.furyPlayer2 >= 1 && gameManager.stateWave == 1)
+            {
+                GameManager.addFury(-GameManager.furyPlayer2, 1);
+                gameManager.ResetBigWave();
+                StartCoroutine(WaitEndAnim(timeAnimationR, false));
+            }
+        }
+
+        if (Input.GetAxis("LeftDoorJP1") > 0)//LT
+        {
+
+            if (GameManager.furyPlayer1 >= 1 && gameManager.stateWave == 1)
+            {
+                GameManager.addFury(-GameManager.furyPlayer1, 0);
+                gameManager.ResetBigWave();
+                StartCoroutine(WaitEndAnim(timeAnimationL, true));
+            }
+        }
+        else if (Input.GetAxis("LeftDoorJP2") > 0)
+        {
+            if (GameManager.furyPlayer2 >= 1 && gameManager.stateWave == 1)
+            {
+                GameManager.addFury(-GameManager.furyPlayer2, 1);
+                gameManager.ResetBigWave();
+                StartCoroutine(WaitEndAnim(timeAnimationL, true));
+            }
+        }
             
             
-            if (Input.GetKeyDown((KeyCode)player2Pal + 4))
+        if (Input.GetKeyDown((KeyCode)player2Pal + 4))
+        {
+            if (GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2)
             {
-                if (GameManager.furyPlayer2 == 1 && gameManager.stateWave == 2)
                 {
-                    {
-                        GameManager.addFury(-GameManager.furyPlayer2, 1);
-                    }
-                }
-
-                if (!player1IsUlti)
-                {
-                    player2IsUlti = true;
+                    GameManager.addFury(-GameManager.furyPlayer2, 1);
                 }
             }
 
-                if (Input.GetKeyDown((KeyCode)player1Pal))
+            if (!player1IsUlti)
             {
-                waveManager.SendUnit(laneSelectedP1, true);
-                player1Cursor.GetComponent<CursorHandler>().Activated();
+                player2IsUlti = true;
             }
-            else if (Input.GetKeyDown((KeyCode)player2Pal))
-            {
-                waveManager.SendUnit(laneSelectedP2, false);
-                player2Cursor.GetComponent<CursorHandler>().Activated();
-            }
-            else if (Input.GetAxis("Vertical" + player1Mapping) > 0.2f && !down1)
-            {
-                laneSelectedP1 = (laneSelectedP1 + 1) % 3;
-                Vector3 pos = player1Cursor.transform.position;
-                pos.x = player1Lanes[laneSelectedP1].transform.position.x;
+        }
 
-                player1Cursor.GetComponent<CursorHandler>().Move();
+            if (Input.GetKeyDown((KeyCode)player1Pal))
+        {
+            waveManager.SendUnit(laneSelectedP1, true);
+            player1Cursor.GetComponent<CursorHandler>().Activated();
+        }
+        else if (Input.GetKeyDown((KeyCode)player2Pal))
+        {
+            waveManager.SendUnit(laneSelectedP2, false);
+            player2Cursor.GetComponent<CursorHandler>().Activated();
+        }
+        else if (Input.GetAxis("Vertical" + player1Mapping) > 0.2f && !down1)
+        {
+            laneSelectedP1 = (laneSelectedP1 + 1) % 3;
+            Vector3 pos = player1Cursor.transform.position;
+            pos.x = player1Lanes[laneSelectedP1].transform.position.x;
 
-                player1Cursor.transform.position = pos;
-                down1 = true;
-            }
-            else if (Input.GetAxis("Vertical" + player1Mapping) < -0.2f && !down1)
-            {
-                laneSelectedP1 = (laneSelectedP1 - 1);
+            player1Cursor.GetComponent<CursorHandler>().Move();
+
+            player1Cursor.transform.position = pos;
+            down1 = true;
+        }
+        else if (Input.GetAxis("Vertical" + player1Mapping) < -0.2f && !down1)
+        {
+            laneSelectedP1 = (laneSelectedP1 - 1);
                
 
-                if (laneSelectedP1 < 0)
-                    laneSelectedP1 = 2;
+            if (laneSelectedP1 < 0)
+                laneSelectedP1 = 2;
 
-                Vector3 pos = player1Cursor.transform.position;
-                pos.x = player1Lanes[laneSelectedP1].transform.position.x;
+            Vector3 pos = player1Cursor.transform.position;
+            pos.x = player1Lanes[laneSelectedP1].transform.position.x;
 
-                player1Cursor.GetComponent<CursorHandler>().Move();
+            player1Cursor.GetComponent<CursorHandler>().Move();
 
-                player1Cursor.transform.position = pos;
+            player1Cursor.transform.position = pos;
 
-                down1 = true;
-            }
-            else if (Input.GetAxis("Vertical" + player1Mapping) > -0.2f && Input.GetAxis("Vertical" + player1Mapping) < 0.2f)
-            {
-                down1 = false;
-            }
-             if (Input.GetAxis("Vertical" + player2Mapping) > 0.2f && !down2)
-            {
-
-                laneSelectedP2 = (laneSelectedP2 + 1) % 3;
-                Vector3 pos = player2Cursor.transform.position;
-                pos.x = player2Lanes[laneSelectedP2].transform.position.x;
-
-                player2Cursor.GetComponent<CursorHandler>().Move();
-
-                player2Cursor.transform.position = pos;
-
-                down2 = true;
-            }
-            else if (Input.GetAxis("Vertical" + player2Mapping) < -0.2f && !down2)
-            {
-                laneSelectedP2 = (laneSelectedP2 - 1);
-
-                if (laneSelectedP2 < 0)
-                    laneSelectedP2 = 2;
-
-                Vector3 pos = player2Cursor.transform.position;
-                pos.x = player2Lanes[laneSelectedP2].transform.position.x;
-
-                player2Cursor.GetComponent<CursorHandler>().Move();
-
-                player2Cursor.transform.position = pos;
-
-                down2 = true;
-            }
-            else if (Input.GetAxis("Vertical" + player2Mapping) > -0.2f && Input.GetAxis("Vertical" + player2Mapping) < 0.2f)
-            {
-                down2 = false;
-            }
+            down1 = true;
         }
-        else // demande aux joueurs d'appuyer sur une touche pour savoir qui est qui
+        else if (Input.GetAxis("Vertical" + player1Mapping) > -0.2f && Input.GetAxis("Vertical" + player1Mapping) < 0.2f)
         {
-             for(int i = 350; i <= 490; i+=20)
-            {
-
-                if (Input.GetKeyDown((KeyCode) i))
-                {
-
-                    //Debug.Log(i);
-
-                    if (player1Mapping == "")
-                    {
-                        player1Mapping = "JP" + (((i - 350) / 20) + 1);
-                        player1Pal = i;
-                    }
-                       
-                    else
-                    {
-                        player2Mapping = "JP" + (((i - 350) / 20) + 1);
-                        player2Pal = i;
-                    }
-                        
-                }
-            }
+            down1 = false;
         }
+            if (Input.GetAxis("Vertical" + player2Mapping) > 0.2f && !down2)
+        {
+
+            laneSelectedP2 = (laneSelectedP2 + 1) % 3;
+            Vector3 pos = player2Cursor.transform.position;
+            pos.x = player2Lanes[laneSelectedP2].transform.position.x;
+
+            player2Cursor.GetComponent<CursorHandler>().Move();
+
+            player2Cursor.transform.position = pos;
+
+            down2 = true;
+        }
+        else if (Input.GetAxis("Vertical" + player2Mapping) < -0.2f && !down2)
+        {
+            laneSelectedP2 = (laneSelectedP2 - 1);
+
+            if (laneSelectedP2 < 0)
+                laneSelectedP2 = 2;
+
+            Vector3 pos = player2Cursor.transform.position;
+            pos.x = player2Lanes[laneSelectedP2].transform.position.x;
+
+            player2Cursor.GetComponent<CursorHandler>().Move();
+
+            player2Cursor.transform.position = pos;
+
+            down2 = true;
+        }
+        else if (Input.GetAxis("Vertical" + player2Mapping) > -0.2f && Input.GetAxis("Vertical" + player2Mapping) < 0.2f)
+        {
+            down2 = false;
+        }
+        
+        
 
         money1Text.text = InputManager.moneyPlayer1.ToString();
         money2Text.text = InputManager.moneyPlayer2.ToString();
