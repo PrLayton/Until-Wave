@@ -77,6 +77,7 @@ public class InputManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+
         InputManager.moneyPlayer1 = moneyTrue;
         InputManager.moneyPlayer2 = moneyTrue;
         InputManager.staticMoneyForSeaShell = moneyForSeaShell;
