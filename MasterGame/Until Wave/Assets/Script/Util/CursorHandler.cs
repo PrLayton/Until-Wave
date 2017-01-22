@@ -8,6 +8,8 @@ public class CursorHandler : MonoBehaviour {
 
     public AudioClip cursorSound;
 
+    public WaveManager waveManager;
+
     public float timeActivated;
 
     private bool activated;
@@ -19,23 +21,20 @@ public class CursorHandler : MonoBehaviour {
     {
         activated = false;
         GetComponent<SpriteRenderer>().sprite = cursorNormal;
+
+        timeActivated = waveManager.cooldown;
     }
     // Update is called once per frame
     void Update () {
-
-	    if(activated)
+        if (timeEnd < Time.time)
         {
-            if (timeEnd < Time.time)
-            {
-                activated = false;
-                GetComponent<SpriteRenderer>().sprite = cursorNormal;
-            }
+            activated = false;
+            GetComponent<SpriteRenderer>().sprite = cursorNormal;
         }
 	}
 
     public void Activated()
     {
-        activated = true;
 
         timeEnd = Time.time + timeActivated;
 

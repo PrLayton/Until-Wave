@@ -10,8 +10,8 @@ public class InputManager : MonoBehaviour {
     static public int staticMoneyForSeaShell;
     public int moneyForSeaShell;
 
-    public int laneSelectedP1 = 2;
-    public int laneSelectedP2 = 2;
+    public int laneSelectedP1 = 1;
+    public int laneSelectedP2 = 1;
 
     public List<GameObject> player1Lanes;
     public List<GameObject> player2Lanes;
@@ -50,6 +50,13 @@ public class InputManager : MonoBehaviour {
     [SerializeField]
     float timeAnimationR;
 
+
+    public int fixPrice;
+    public int fixAmount;
+
+    public Castle castleP1;
+    public Castle castleP2;
+
     // Use this for initialization
     void Start () {
         InputManager.moneyPlayer1 = moneyTrue;
@@ -58,6 +65,14 @@ public class InputManager : MonoBehaviour {
 
         player1Cursor.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
         player2Cursor.GetComponent<CursorHandler>().timeActivated = waveManager.cooldown;
+
+        Vector3 pos = player1Cursor.transform.position;
+        pos.x = player1Lanes[laneSelectedP1].transform.position.x;
+        player1Cursor.transform.position = pos;
+
+         pos = player2Cursor.transform.position;
+        pos.x = player2Lanes[laneSelectedP2].transform.position.x;
+        player2Cursor.transform.position = pos;
     }
 	
 	// Update is called once per frame
@@ -69,15 +84,40 @@ public class InputManager : MonoBehaviour {
 
            // Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
 
-            /*if(Input.GetAxis("FuryJP1") > 0)
+
+            if(Input.GetKeyDown((KeyCode) player1Pal + 4))//LB
             {
-               
+                Debug.Log("LB 1");
             }
-            else if (Input.GetAxis("FuryJP2") > 0)
+            else if(Input.GetKeyDown((KeyCode)player2Pal + 4))
+            {
+                Debug.Log("LB 2");
+            }
+
+            if (Input.GetKeyDown((KeyCode)player1Pal + 5))//RB
+            {
+                Debug.Log("RB 1");
+            }
+            else if (Input.GetKeyDown((KeyCode)player2Pal + 5))
+            {
+                Debug.Log("RB 2");
+            }
+
+
+            if (Input.GetAxis("LeftDoorJP1") > 0)//LT
+            {
+               if(moneyPlayer1 >= fixPrice)
+                {
+                    moneyPlayer1 -= fixPrice;
+
+                    castleP1.ReceiveFix(fixAmount);
+                }
+            }
+            else if (Input.GetAxis("LeftDoorJP2") > 0)
             {
                
 
-            }*/
+            }
 
             if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
             {
@@ -132,7 +172,7 @@ public class InputManager : MonoBehaviour {
                 waveManager.SendUnit(laneSelectedP2, false);
                 player2Cursor.GetComponent<CursorHandler>().Activated();
             }
-            else if (Input.GetAxis("Vertical" + player1Mapping) > 0 && !down1)
+            else if (Input.GetAxis("Vertical" + player1Mapping) > 0.2f && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 + 1) % 3;
                 Vector3 pos = player1Cursor.transform.position;
@@ -143,7 +183,7 @@ public class InputManager : MonoBehaviour {
                 player1Cursor.transform.position = pos;
                 down1 = true;
             }
-            else if (Input.GetAxis("Vertical" + player1Mapping) < 0 && !down1)
+            else if (Input.GetAxis("Vertical" + player1Mapping) < -0.2f && !down1)
             {
                 laneSelectedP1 = (laneSelectedP1 - 1);
                
@@ -160,11 +200,11 @@ public class InputManager : MonoBehaviour {
 
                 down1 = true;
             }
-            else if (Input.GetAxis("Vertical" + player1Mapping) == 0)
+            else if (Input.GetAxis("Vertical" + player1Mapping) > -0.2f && Input.GetAxis("Vertical" + player1Mapping) < 0.2f)
             {
                 down1 = false;
             }
-             if (Input.GetAxis("Vertical" + player2Mapping) > 0 && !down2)
+             if (Input.GetAxis("Vertical" + player2Mapping) > 0.2f && !down2)
             {
 
                 laneSelectedP2 = (laneSelectedP2 + 1) % 3;
@@ -177,7 +217,7 @@ public class InputManager : MonoBehaviour {
 
                 down2 = true;
             }
-            else if (Input.GetAxis("Vertical" + player2Mapping) < 0 && !down2)
+            else if (Input.GetAxis("Vertical" + player2Mapping) < -0.2f && !down2)
             {
                 laneSelectedP2 = (laneSelectedP2 - 1);
 
@@ -193,7 +233,7 @@ public class InputManager : MonoBehaviour {
 
                 down2 = true;
             }
-            else if (Input.GetAxis("Vertical" + player2Mapping) == 0)
+            else if (Input.GetAxis("Vertical" + player2Mapping) > -0.2f && Input.GetAxis("Vertical" + player2Mapping) < 0.2f)
             {
                 down2 = false;
             }

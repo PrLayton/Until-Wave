@@ -37,6 +37,13 @@ public class Castle : MonoBehaviour {
             GameManager.EndGame(true, gameObject.tag == "base1" ? true : false);
     }
 
+    public void ReceiveFix(int amount)
+    {
+        health += amount;
+
+        UpdateMesh();
+    }
+
     private void UpdateMesh()
     {
         //stock l'index du mesh à charger
