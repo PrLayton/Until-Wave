@@ -142,6 +142,8 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(WaitAnimBigWave());
             bigWaveTimer = 60.0f;
         }
+        if (currentGeneralTimer <= 0)
+            EndGame(false, castle1.health >= castle2.health ? true : false);
     }
 
     IEnumerator WaitAnimBigWave()
@@ -174,8 +176,17 @@ public class GameManager : MonoBehaviour {
     {
         SceneManager.LoadSceneAsync(2);
 
-        //if()
-        PlayerPrefs.SetInt("Winning", isPlayer1Winner ? 0 : 1);
+        if(isCastleDead)
+        {
+            PlayerPrefs.SetInt("Winning", isPlayer1Winner ? (int)EWin.WinCastlePlayer1 : (int)EWin.WinCastlePlayer2);
+
+        }
+        else//timer
+        {          
+           PlayerPrefs.SetInt("Winning", isPlayer1Winner ? (int)EWin.WinTimePlayer1 : (int)EWin.WinTimePlayer2);
+        }
+
+        PlayerPrefs.Save();
     }
 
     static public void addFury(float _value, int _player)
