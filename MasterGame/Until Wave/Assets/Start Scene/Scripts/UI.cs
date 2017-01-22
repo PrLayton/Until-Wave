@@ -70,7 +70,7 @@ public class UI : MonoBehaviour {
                     }
                     down = true;
                 }
-                else if (Input.GetAxis("VerticaJP1") == 0)
+                else if (Input.GetAxis("VerticalJP1") == 0)
                     down = false;        
         }
 
