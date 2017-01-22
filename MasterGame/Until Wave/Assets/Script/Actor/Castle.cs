@@ -34,7 +34,7 @@ public class Castle : MonoBehaviour {
         UpdateMesh();
 
         if (health <= 0)
-            GameManager.EndGame(true, gameObject.tag == "base1" ? true : false);
+            GameManager.EndGame(true, gameObject.layer == 11 ? true : false);
     }
 
     public void ReceiveFix(int amount)
