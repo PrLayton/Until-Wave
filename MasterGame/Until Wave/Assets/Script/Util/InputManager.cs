@@ -103,6 +103,8 @@ public class InputManager : MonoBehaviour {
                     Debug.Log(laneSelectedP1);
                 }
             }
+
+            
             
             if (Input.GetKeyDown((KeyCode)player2Pal + 4))
             {
