@@ -50,13 +50,11 @@ public class GameOver : MonoBehaviour {
             {
                 samWin();
             }
-
-            if (Input.GetKeyDown(KeyCode.JoystickButton7))
-            {
-                SceneManager.LoadScene("StartScene");
-            }
         }
-        
+        if (Input.GetKeyDown(KeyCode.JoystickButton7))
+        {
+            SceneManager.LoadScene("StartScene");
+        }
     }
 
     void maxWin()

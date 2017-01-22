@@ -75,6 +75,8 @@ public class InputManager : MonoBehaviour {
     public Castle castleP1;
     public Castle castleP2;
 
+    public AudioSource wallConstructAudio;
+
     // Use this for initialization
     void Start () {
 
@@ -345,6 +347,8 @@ public class InputManager : MonoBehaviour {
 
     public void AddWall(bool isPlayer1, int _value)
     {
+        wallConstructAudio.Play();
+
         if (isPlayer1)
         {
             if(wallPlayer1 < wallsPlayer1.Length)

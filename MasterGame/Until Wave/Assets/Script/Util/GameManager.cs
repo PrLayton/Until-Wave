@@ -80,6 +80,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     InputManager inputManager;
 
+    bool endTimerPlayed = false;
+    [SerializeField]
+    AudioSource endTimerAudio;
+
     // Use this for initialization
     void Start () {
         currentTimerWave = 0;
@@ -95,6 +99,12 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (!endTimerPlayed && currentGeneralTimer -5.0f <= 0f)
+        {
+            endTimerAudio.Play();
+            endTimerPlayed = true;
+        }
+
         currentTimerWave -= Time.deltaTime;
 
         if (!littleWaveLaunched)
@@ -147,7 +157,7 @@ public class GameManager : MonoBehaviour {
 
         //empyWave.transform.position = Vector3.Lerp(empyWavePosition1.position, empyWavePosition2.position, Time.deltaTime * 10f);
         
-        if (currentGeneralTimer <= 0)
+        if (currentGeneralTimer <= -4)
             EndGame(false, castle1.health >= castle2.health ? true : false);
     }
 
@@ -193,7 +203,7 @@ public class GameManager : MonoBehaviour {
    public static void EndGame(bool isCastleDead, bool isPlayer1Winner)
     {
 
-        SceneManager.LoadSceneAsync(2);
+        SceneManager.LoadSceneAsync(3);
 
         if(isCastleDead)
         {

@@ -11,7 +11,6 @@ public class UI : MonoBehaviour {
     public AudioClip tchick;
     public AudioClip intro;
     public AudioClip ambianceSea;
-    public AudioClip menu_music;
     public GameObject blackscreen;
     public int optionSelected = 1;
 
@@ -39,8 +38,12 @@ public class UI : MonoBehaviour {
             {
                 blackscreen.SetActive(false);
                 AudioSource.PlayClipAtPoint(ambianceSea, new Vector3(0, 0, 0));
-                AudioSource.PlayClipAtPoint(menu_music, new Vector3(0, 0, 0));
             }
+
+
+            // si le joueur 1 est mappé on y va
+            if (player1Mapping != "")
+            {
 
                 if (Input.GetKeyDown(KeyCode.JoystickButton0))
                 {
@@ -48,14 +51,14 @@ public class UI : MonoBehaviour {
 
                     if (optionSelected == 1)
                     {
-                        SceneManager.LoadScene("TestScene");
+                        SceneManager.LoadScene("TutoScene");
                     }
                     else
                     {
                         Application.Quit();
                     }
                 }
-                else if ((Input.GetAxis("VerticalJP1") > 0 || Input.GetAxis("VerticalJP1") < 0) && !down)
+                else if ((Input.GetAxis("Vertical" + player1Mapping) > 0 || Input.GetAxis("Vertical" + player1Mapping) < 0) && !down)
                 {
                     AudioSource.PlayClipAtPoint(tchick, new Vector3(0, 0, 1));
                     if (optionSelected == 1)
@@ -70,8 +73,24 @@ public class UI : MonoBehaviour {
                     }
                     down = true;
                 }
-                else if (Input.GetAxis("VerticalJP1") == 0)
-                    down = false;        
+                else if (Input.GetAxis("Vertical" + player1Mapping) == 0)
+                    down = false;
+
+            }
+            else // on map le joueur 1
+            {
+                for (int i = 350; i <= 490; i += 20)
+                {
+                    if (Input.GetKeyDown((KeyCode)i))
+                    {
+                        if (player1Mapping == "")
+                        {
+                            player1Mapping = "JP" + (((i - 350) / 20) + 1);
+                            player1Pal = i;
+                        }
+                    }
+                }
+            }
         }
 
         
