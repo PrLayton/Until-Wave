@@ -28,14 +28,17 @@ public class WaveManager : MonoBehaviour {
                 tmp.tag = "player1";
                 tmp.layer = 13;
 
-                if(Random.Range(0.0f,1.0f) >= 0.5)
+                tmp.GetComponent<Unit>().meshMP2.SetActive(false);
+                tmp.GetComponent<Unit>().meshFP2.SetActive(false);
+
+                if (Random.Range(0.0f,1.0f) >= 0.5)
                 {
-                    tmp.GetComponent<Unit>().meshM.SetActive(false);
+                    tmp.GetComponent<Unit>().meshMP1.SetActive(false);
                     tmp.GetComponent<Unit>().isAGirl = true;
                 }
                 else
                 {
-                    tmp.GetComponent<Unit>().meshF.SetActive(false);
+                    tmp.GetComponent<Unit>().meshFP1.SetActive(false);
                     tmp.GetComponent<Unit>().isAGirl = false;
                 }
 
@@ -53,12 +56,12 @@ public class WaveManager : MonoBehaviour {
 
                 if (Random.Range(0.0f, 1.0f) >= 0.5)
                 {
-                    tmp2.GetComponent<Unit>().meshM.SetActive(false);
+                    tmp2.GetComponent<Unit>().meshMP2.SetActive(false);
                     tmp2.GetComponent<Unit>().isAGirl = true;
                 }
                 else
                 {
-                    tmp2.GetComponent<Unit>().meshF.SetActive(false);
+                    tmp2.GetComponent<Unit>().meshFP2.SetActive(false);
                     tmp2.GetComponent<Unit>().isAGirl = false;
                 }
 
@@ -80,23 +83,23 @@ public class WaveManager : MonoBehaviour {
 
         if (Random.Range(0.0f, 1.0f) >= 0.5)
         {
-            tmp.GetComponent<Unit>().meshM.SetActive(false);
+           // tmp.GetComponent<Unit>().meshM.SetActive(false);
             tmp.GetComponent<Unit>().isAGirl = true;
         }
         else
         {
-            tmp.GetComponent<Unit>().meshF.SetActive(false);
+           // tmp.GetComponent<Unit>().meshF.SetActive(false);
             tmp.GetComponent<Unit>().isAGirl = false;
         }
 
         if (Random.Range(0.0f, 1.0f) >= 0.5)
         {
-            tmp2.GetComponent<Unit>().meshM.SetActive(false);
+           // tmp2.GetComponent<Unit>().meshM.SetActive(false);
             tmp2.GetComponent<Unit>().isAGirl = true;
         }
         else
         {
-            tmp2.GetComponent<Unit>().meshF.SetActive(false);
+           // tmp2.GetComponent<Unit>().meshF.SetActive(false);
             tmp2.GetComponent<Unit>().isAGirl = false;
         }
     }
