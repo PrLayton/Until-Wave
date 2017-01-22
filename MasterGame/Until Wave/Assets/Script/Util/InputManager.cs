@@ -69,7 +69,7 @@ public class InputManager : MonoBehaviour {
 
            // Debug.Log("player 22" + Input.GetAxis("Vertical" + player2Mapping));
 
-            if(Input.GetAxis("FuryJP1") > 0)
+            /*if(Input.GetAxis("FuryJP1") > 0)
             {
                
             }
@@ -77,7 +77,7 @@ public class InputManager : MonoBehaviour {
             {
                
 
-            }
+            }*/
 
             if(Input.GetKeyDown((KeyCode)player1Pal + 4))//LB
             {
@@ -98,7 +98,7 @@ public class InputManager : MonoBehaviour {
                     }
 
 
-                    laneSelectedP1 = laneSelectedP1 % playerUltiPoints.Count;
+                    //laneSelectedP1 = laneSelectedP1 % playerUltiPoints.Count;
 
                     Debug.Log(laneSelectedP1);
                 }
