@@ -54,6 +54,11 @@ public class InputManager : MonoBehaviour {
     [SerializeField]
     AudioSource ultraWaveAudioR;
 
+    [SerializeField]
+    GameObject block1;
+    [SerializeField]
+    GameObject block2;
+
     public int wallPlayer1 = 0;
     public int wallPlayer2 = 0;
     public int wallPrice = 100;
@@ -305,11 +310,13 @@ public class InputManager : MonoBehaviour {
     {
         if (leftSide)
         {
+            block1.SetActive(false);
             taLeftUltraWage.PlayAnimation();
             ultraWaveAudioL.Play();
         }
         else
         {
+            block2.SetActive(false);
             taRightUltraWage.PlayAnimation();
             ultraWaveAudioR.Play();
         }

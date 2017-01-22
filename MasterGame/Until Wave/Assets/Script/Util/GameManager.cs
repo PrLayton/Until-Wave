@@ -60,7 +60,10 @@ public class GameManager : MonoBehaviour {
 
     public int stateWave = -1;
     public SpriteRenderer sprtBigWaveRenderer;
-    public Sprite[] sprtBigWave;
+    //public Sprite[] sprtBigWave;
+    public GameObject empyWave;
+    public Transform[] empyWavePositions;
+    public Transform empyWaveStartPosition;
 
     public ToolAnimator animatorForLittleWave;
     public ToolAnimator animatorForBigWave;
@@ -68,6 +71,11 @@ public class GameManager : MonoBehaviour {
     public AudioSource littleWaveAudio;
     public AudioSource bigWaveAudio;
     public AudioSource addWaveStateAudio;
+
+    [SerializeField]
+    GameObject block1;
+    [SerializeField]
+    GameObject block2;
 
     [SerializeField]
     InputManager inputManager;
@@ -136,29 +144,36 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(WaitAnimBigWave());
             bigWaveTimer = 60.0f;
         }
+
+        //empyWave.transform.position = Vector3.Lerp(empyWavePosition1.position, empyWavePosition2.position, Time.deltaTime * 10f);
+        
         if (currentGeneralTimer <= 0)
             EndGame(false, castle1.health >= castle2.health ? true : false);
     }
 
     IEnumerator WaitAnimBigWave()
     {
+        block1.SetActive(true);
+        block2.SetActive(true);
         animatorForBigWave.PlayAnimation();
         bigWaveAudio.Play();
         yield return new WaitForSeconds(timeAnimBigWave);
-        if (stateWave < sprtBigWave.Length - 1)
+        if (stateWave < empyWavePositions.Length - 1)
         {
             stateWave++;
-            sprtBigWaveRenderer.sprite = sprtBigWave[stateWave];
+            empyWave.transform.position = empyWavePositions[stateWave].position;
+            //sprtBigWaveRenderer.sprite = sprtBigWave[stateWave];
             addWaveStateAudio.Play();
         }
-        castle1.ReceiveDamage(bigWaveDammage/inputManager.wallPlayer1);
-        castle2.ReceiveDamage(bigWaveDammage/inputManager.wallPlayer1);
+        castle1.ReceiveDamage(bigWaveDammage/(inputManager.wallPlayer1+1));
+        castle2.ReceiveDamage(bigWaveDammage/(inputManager.wallPlayer1+1));
     }
 
     public void ResetBigWave()
     {
         stateWave = - 1;
-        sprtBigWaveRenderer.sprite = null;
+        empyWave.transform.position = empyWaveStartPosition.position;
+        //sprtBigWaveRenderer.sprite = null;
     }
 
     IEnumerator SendShells()
@@ -195,8 +210,6 @@ public class GameManager : MonoBehaviour {
 
     static public void addFury(float _value, int _player)
     {
-        if (furyPlayer1 < 1)
-        {
             if (_player == 0)
             {
                 furyPlayer1 += _value;
@@ -205,6 +218,13 @@ public class GameManager : MonoBehaviour {
             {
                 furyPlayer2 += _value;
             }
+        if (furyPlayer1 > 1)
+        {
+            furyPlayer1 = 1;
+        }
+        if (furyPlayer2 > 1)
+        {
+            furyPlayer2 = 1;
         }
     }
 }
